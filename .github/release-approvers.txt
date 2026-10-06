@@ -12,4 +12,4 @@
 # @agenticprocessprotocol/custodians and
 # @agenticprocessprotocol/release-approvers per .github/CODEOWNERS.
 
-vaidhya-vach
+APPcustodian
