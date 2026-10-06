@@ -14,7 +14,7 @@ This file records every operational element of the Agentic Process Protocol repo
 |---|---|---|---|---|
 | Organisation | `agenticprocessprotocol` | Vaidhya (Vach AI Limited) | 2026-10-06 | Established in Work Package 1 |
 | 2FA enforcement | On | Vaidhya | 2026-10-06 | Org-wide |
-| Default Actions permissions | Read-only | Bhavna | 2026-10-06 | Org-level default |
+| Default Actions permissions | Read-only | Vaidhya | 2026-10-06 | Org-level default |
 
 ## 2. Repository
 
