@@ -12,9 +12,9 @@ This file records every operational element of the Agentic Process Protocol repo
 
 | Element | Value | Approver | Date | Notes |
 |---|---|---|---|---|
-| Organisation | `agenticprocessprotocol` | Vaidhya (Vach AI Limited) | 2026-09-XX | Established in Work Package 1 |
-| 2FA enforcement | On | Vaidhya | 2026-09-XX | Org-wide |
-| Default Actions permissions | Read-only | Vaidhya | 2026-09-XX | Org-level default |
+| Organisation | `agenticprocessprotocol` | Vaidhya (Vach AI Limited) | 2026-10-06 | Established in Work Package 1 |
+| 2FA enforcement | On | Vaidhya | 2026-10-06 | Org-wide |
+| Default Actions permissions | Read-only | Bhavna | 2026-10-06 | Org-level default |
 
 ## 2. Repository
 
@@ -22,20 +22,20 @@ This file records every operational element of the Agentic Process Protocol repo
 |---|---|---|---|---|
 | Repository | `agenticprocessprotocol/spec` | Vaidhya | 2026-09-XX | Public, empty at creation |
 | Default branch | `main` | Vaidhya | 2026-10-XX | Set during Package 2 PR merge |
-| Branch protection — `main` | Enabled, interim ruleset | Vaidhya | 2026-10-XX | Activated at Package 4 |
-| Tag protection — `APP-*` | Enabled | Vaidhya | 2026-10-XX | Activated at Package 4 |
-| Private vulnerability reporting | Enabled | Vaidhya | 2026-10-XX | Activated at Package 4 |
-| Secret scanning + push protection | Enabled | Vaidhya | 2026-10-XX | Activated at Package 4 |
-| First-time contributor workflow approval | Required | Vaidhya | 2026-10-XX | Activated at Package 4 |
+| Branch protection — `main` | Enabled, interim ruleset | Vaidhya | 2026-10-06 | Activated at Package 4 |
+| Tag protection — `APP-*` | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
+| Private vulnerability reporting | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
+| Secret scanning + push protection | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
+| First-time contributor workflow approval | Required | Vaidhya | 2026-10-06 | Activated at Package 4 |
 
 ## 3. Teams and access
 
 | Team | Members | Approver | Date | Notes |
 |---|---|---|---|---|
-| `@agenticprocessprotocol/custodians` | *(to be populated)* | Vaidhya | 2026-09-XX | Created in Package 1 |
-| `@agenticprocessprotocol/editors` | Vaidhya, Bhavna Krishnan | Vaidhya | 2026-09-XX | Co-maintainer per §4 Option A |
-| `@agenticprocessprotocol/release-approvers` | Vaidhya | Vaidhya | 2026-09-XX | Named individual, not a shared mailbox |
-| `@agenticprocessprotocol/working-group` | *(empty)* | Vaidhya | 2026-09-XX | Reserved for WG formation |
+| `@agenticprocessprotocol/custodians` | APP Custodian, Vaidhya | Vaidhya | 2026-09-28 | Created in Package 1 |
+| `@agenticprocessprotocol/editors` | Vaidhya | Vaidhya | 2026-10-06 | Co-maintainer per §4 Option A |
+| `@agenticprocessprotocol/release-approvers` | Bhavna | Bhavna | 2026-10-06 | Named individual, not a shared mailbox |
+| `@agenticprocessprotocol/working-group` | *(empty)* | Vaidhya | 2026-10-XX | Reserved for WG formation |
 
 ## 4. GitHub Apps installed
 
