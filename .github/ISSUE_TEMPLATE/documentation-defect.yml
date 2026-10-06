@@ -1,0 +1,103 @@
+name: Documentation defect
+description: Report a defect in a published or draft APP document — an ambiguity, inconsistency, factual error, or broken reference.
+title: "[defect] <short description>"
+labels:
+  - defect
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a defect in an APP document. Please fill in the fields below so the editors can triage efficiently.
+
+        **Not for security defects.** Suspected security defects go through private vulnerability reporting; see [`SECURITY.md`](../../SECURITY.md).
+
+  - type: dropdown
+    id: affected-document
+    attributes:
+      label: Affected document
+      description: Which document does the defect concern?
+      options:
+        - APP-0 Protocol Objectives
+        - APP-1 Protocol Constitution
+        - APP-2 Core Technical Specification
+        - APP-3 Security Architecture
+        - APP-4 Entity Correlation Architecture
+        - APP-5 Conformance Profiles
+        - APP-IG-01 Implementor's Guide
+        - APP-IG-02 Cross-Reference Matrix
+        - APP-IG-03 Worked Example
+        - APP-IG-04 Frequently Asked Questions
+        - APP-IG-05 Protocol Objectives Realisation and Assurance Guide
+        - csl/Scope.md
+        - csl/Governance.md
+        - csl/Notices.md
+        - Other (describe below)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Document version and baseline
+      description: Which version of the document? For released content, the baseline tag (e.g. "v3.13, APP-2026-10-RC1"). For drafts, the branch and date.
+      placeholder: "e.g., v3.13, APP-2026-10-RC1"
+    validations:
+      required: true
+
+  - type: input
+    id: section
+    attributes:
+      label: Section or requirement ID
+      description: Section number, requirement ID, or the heading where the defect appears.
+      placeholder: "e.g., §S13.2 or SEC-S2-01"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-text
+    attributes:
+      label: Current text (as written)
+      description: Paste the exact wording that contains the defect. Use markdown blockquote (`>`) or code block.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-defective
+    attributes:
+      label: Why this is defective
+      description: Explain the ambiguity, inconsistency, error, or broken reference. If this is a cross-reference defect, name the referenced target that is missing or wrong.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-wording
+    attributes:
+      label: Suggested wording (optional)
+      description: If you have a suggested correction, paste it here. Not required — reporting the defect clearly is enough.
+
+  - type: checkboxes
+    id: ai-authorship
+    attributes:
+      label: AI-authorship disclosure
+      description: See `/CONTRIBUTING.md` §4. Ordinary grammar checkers and translation do not require disclosure.
+      options:
+        - label: No material AI-generated substantive content is in this report that I have not independently reviewed.
+          required: false
+        - label: This report includes material AI-generated content, described below.
+          required: false
+
+  - type: textarea
+    id: ai-disclosure-detail
+    attributes:
+      label: AI-authorship — detail (if applicable)
+      description: If the second box above is ticked, describe what was AI-generated and how you reviewed it.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Submission acknowledgement
+      description: By submitting, you accept the Contribution Terms.
+      options:
+        - label: I accept the APP Contribution Terms (CSL 1.0) and confirm this report does not include personal data of third parties or any material in the `/SECURITY.md` *Never-in-repo* list.
+          required: true

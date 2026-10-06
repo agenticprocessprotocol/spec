@@ -1,0 +1,45 @@
+# Dependabot configuration for the APP specification repository.
+#
+# Keeps third-party GitHub Actions pinned to current commit SHAs
+# (replacing the SHA, not reverting to a tag reference) and keeps
+# Python dependencies used by validator scripts up to date.
+#
+# Dependabot PRs follow the standard review process in GOVERNANCE.md
+# §2. Dependabot is configured to add a DCO sign-off.
+
+version: 2
+
+updates:
+  # Third-party GitHub Actions.
+  # Dependabot updates @sha references to the newest commit SHA on the
+  # action's released tag.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps(actions)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    reviewers:
+      - "agenticprocessprotocol/custodians"
+
+  # Python dependencies used by validator scripts under .github/scripts/
+  - package-ecosystem: "pip"
+    directory: "/.github/scripts"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps(python)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "python"
+    reviewers:
+      - "agenticprocessprotocol/custodians"

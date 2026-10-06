@@ -1,0 +1,146 @@
+name: Normative proposal
+description: Propose a change to a requirement, RFC keyword, conformance obligation, or interpretation that affects implementation or conformance.
+title: "[normative] <short description>"
+labels:
+  - normative-proposal
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Normative changes do not begin as pull requests.
+
+        This form is the entry point. The editors review your proposal, discuss it in Discussions where appropriate, and — if accepted for drafting — open a pull request with a completed change-impact manifest.
+
+        Please fill in every applicable section. Fields marked with * are required for the form to be submitted.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary*
+      description: One or two sentences on what you want to change and why.
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected-documents
+    attributes:
+      label: Affected documents*
+      description: List every APP document the proposed change would touch. Normative changes often touch multiple documents (e.g. APP-2 and APP-5).
+      placeholder: |
+        - APP-2 §…
+        - APP-5 §…
+    validations:
+      required: true
+
+  - type: input
+    id: section
+    attributes:
+      label: Primary section*
+      description: The section where the change originates. If the change affects multiple sections, list the controlling one here and the rest in *Affected documents*.
+      placeholder: "e.g., APP-3 §S13.2"
+    validations:
+      required: true
+
+  - type: input
+    id: requirement-ids
+    attributes:
+      label: Requirement ID(s)*
+      description: The requirement IDs affected (if any). If the proposal creates a new requirement, write "NEW" and describe below.
+      placeholder: "e.g., SEC-S2-01, SEC-S2-02 — or NEW"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change-type
+    attributes:
+      label: Change type*
+      options:
+        - Modify an existing requirement (change semantics)
+        - Modify an RFC 2119 keyword (strengthen or weaken)
+        - Add a new requirement
+        - Remove a requirement
+        - Modify a conformance obligation in APP-5
+        - Modify a schema identified as part of the Specification
+        - Modify an interpretation affecting implementation or conformance
+        - Other normative change (describe below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: stakeholder-role
+    attributes:
+      label: Your stakeholder role*
+      options:
+        - Implementor (writing conformant software)
+        - Enterprise adopter (evaluating or deploying)
+        - Auditor / assurance role
+        - Policy / compliance / legal
+        - Researcher / academic
+        - Vendor / commercial platform
+        - Other / mix
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-wording
+    attributes:
+      label: Proposed wording*
+      description: Draft the exact replacement text or new text. For modifications, show "current → proposed" side by side or in blockquotes.
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale*
+      description: Why is the change needed? What does the current text get wrong, allow in error, or make hard to implement correctly?
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact assessment*
+      description: |
+        Address each of the following, briefly:
+        - **Compatibility:** Does the change break conformant implementations of the current baseline?
+        - **Cross-references:** Which other documents cite the affected sections and must be updated?
+        - **Conformance:** How does the change affect APP-5 applicability or test criteria?
+        - **Migration:** What should existing implementations do to remain conformant?
+        A full change-impact manifest will be prepared at the PR stage; this field is a first assessment.
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation-evidence
+    attributes:
+      label: Implementation evidence
+      description: If you have attempted an implementation of the current text and encountered the problem, describe it. If you have a prototype of the proposed text, link or describe.
+
+  - type: checkboxes
+    id: ai-authorship
+    attributes:
+      label: AI-authorship disclosure*
+      description: See `/CONTRIBUTING.md` §4.
+      options:
+        - label: No material AI-generated substantive normative content is in this proposal that I have not independently reviewed and validated.
+          required: false
+        - label: This proposal includes material AI-generated content, described below.
+          required: false
+
+  - type: textarea
+    id: ai-disclosure-detail
+    attributes:
+      label: AI-authorship — detail (if applicable)
+      description: If the second box above is ticked, describe what was AI-generated, how you reviewed it, and what external sources you used to verify technical claims.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Submission acknowledgement*
+      options:
+        - label: I accept the APP Contribution Terms (CSL 1.0). I confirm this report does not include personal data of third parties, Interim-Custodian internal material, or any material in the `/SECURITY.md` *Never-in-repo* list.
+          required: true
+        - label: I understand that this issue is the entry point for a normative proposal, not a commitment that the proposal will be accepted or adopted on any timeline, and that acceptance follows the procedure in `/GOVERNANCE.md` §2.
+          required: true

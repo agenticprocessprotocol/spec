@@ -1,0 +1,94 @@
+name: validate-spec
+
+# Runs the specification validators on every pull request and every push
+# to main. This workflow is a REQUIRED STATUS CHECK on `main` once the
+# Package 4 ruleset is active.
+#
+# Each validator is a Python script under .github/scripts/. See
+# SECURITY-AUTOMATION.md §1 for the pinning and permissions rules this
+# workflow follows.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-spec-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  manifest:
+    name: Manifest validator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v6.0.3
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        working-directory: .github/scripts
+        run: pip install --require-hashes -r requirements.txt || pip install -r requirements.txt
+      - name: Run manifest validator
+        run: python .github/scripts/validate_manifest.py
+
+  legacy-names:
+    name: Legacy-name validator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v6.0.3
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        working-directory: .github/scripts
+        run: pip install -r requirements.txt
+      - name: Run legacy-name validator
+        run: python .github/scripts/validate_legacy_names.py
+
+  normative-keywords:
+    name: Normative-keyword validator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v6.0.3
+        with:
+          fetch-depth: 0  # need full history for diff vs base
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        working-directory: .github/scripts
+        run: pip install -r requirements.txt
+      - name: Run normative-keyword validator
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: python .github/scripts/validate_normative_keywords.py
+
+  cross-references:
+    name: Cross-reference validator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v6.0.3
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        working-directory: .github/scripts
+        run: pip install -r requirements.txt
+      - name: Run cross-reference validator
+        run: python .github/scripts/validate_cross_references.py

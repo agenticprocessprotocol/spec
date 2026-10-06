@@ -1,0 +1,96 @@
+name: Clarification request
+description: Request clarification of a document passage — the text may be correct but is hard to read, could be read two ways, or needs an example.
+title: "[clarification] <short description>"
+labels:
+  - clarification
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template when a passage of an APP document is confusing or could be read more than one way, and you'd like the editors to improve the text — not when you believe the text is factually wrong (use *Documentation defect* for that).
+
+  - type: dropdown
+    id: affected-document
+    attributes:
+      label: Affected document
+      options:
+        - APP-0 Protocol Objectives
+        - APP-1 Protocol Constitution
+        - APP-2 Core Technical Specification
+        - APP-3 Security Architecture
+        - APP-4 Entity Correlation Architecture
+        - APP-5 Conformance Profiles
+        - APP-IG-01 Implementor's Guide
+        - APP-IG-02 Cross-Reference Matrix
+        - APP-IG-03 Worked Example
+        - APP-IG-04 Frequently Asked Questions
+        - APP-IG-05 Protocol Objectives Realisation and Assurance Guide
+        - csl/Scope.md
+        - csl/Governance.md
+        - csl/Notices.md
+        - Other (describe below)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Document version and baseline
+      placeholder: "e.g., v3.13, APP-2026-10-RC1"
+    validations:
+      required: true
+
+  - type: input
+    id: section
+    attributes:
+      label: Section or requirement ID
+      placeholder: "e.g., §S13.2 or SEC-S2-01"
+    validations:
+      required: true
+
+  - type: textarea
+    id: passage
+    attributes:
+      label: Passage in question
+      description: Paste the passage you'd like clarified.
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-is-confusing
+    attributes:
+      label: What is confusing
+      description: Explain what makes the passage ambiguous, hard to read, or open to multiple reasonable readings. If you can state the two or more readings explicitly, that is especially helpful.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: stakeholder-role
+    attributes:
+      label: Your stakeholder role
+      description: Why are you reading this passage?
+      options:
+        - Implementor (writing conformant software)
+        - Enterprise adopter (evaluating or deploying)
+        - Auditor / assurance role
+        - Policy / compliance / legal
+        - Researcher / academic
+        - Educator / documentation author
+        - Other / mix
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context (optional)
+      description: What were you trying to do when you encountered this passage?
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Submission acknowledgement
+      options:
+        - label: I accept the APP Contribution Terms (CSL 1.0) and confirm this report does not include personal data of third parties or any material in the `/SECURITY.md` *Never-in-repo* list.
+          required: true

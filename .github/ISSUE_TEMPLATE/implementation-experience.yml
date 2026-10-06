@@ -1,0 +1,94 @@
+name: Implementation experience
+description: Report what worked, what didn't, and where the Specification was unclear while implementing APP.
+title: "[impl-exp] <short description>"
+labels:
+  - implementation-experience
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for sharing implementation experience. Reports like this surface where the Specification is clear, where it isn't, and where the natural failure modes are. They inform both editorial and normative work.
+
+        This form is **not** a route for proposing specific normative changes — use *Normative proposal* for that. Here, describe what you did and what you found.
+
+  - type: textarea
+    id: implementation-summary
+    attributes:
+      label: What you implemented*
+      description: Which parts of the Specification did you implement, and in what environment (language, framework, deployment context)?
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Baseline / version*
+      description: Which version of the Specification did you work against?
+      placeholder: "e.g., APP-2026-10-RC1"
+    validations:
+      required: true
+
+  - type: textarea
+    id: worked-well
+    attributes:
+      label: What worked well
+      description: Which parts of the Specification were clear and straightforward to implement?
+
+  - type: textarea
+    id: did-not-work
+    attributes:
+      label: What was unclear or did not work*
+      description: Which parts gave you difficulty? Be specific — reference section numbers, requirement IDs, or schema fields.
+    validations:
+      required: true
+
+  - type: textarea
+    id: observed-divergence
+    attributes:
+      label: Observed divergence from the Specification
+      description: If you encountered another implementation (yours or someone else's) that diverged from the Specification, describe what divergence you saw and in which direction.
+
+  - type: textarea
+    id: suggestions
+    attributes:
+      label: Suggested editorial improvements
+      description: If you can suggest wording that would have helped you avoid the difficulties above, write it here. These typically become editorial changes rather than normative ones.
+
+  - type: dropdown
+    id: stakeholder-role
+    attributes:
+      label: Your stakeholder role*
+      options:
+        - Implementor (writing conformant software)
+        - Vendor / commercial platform
+        - Enterprise adopter (building on top of a vendor implementation)
+        - Auditor / assurance role
+        - Research / academic
+        - Other / mix
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: ai-authorship
+    attributes:
+      label: AI-authorship disclosure
+      description: See `/CONTRIBUTING.md` §4.
+      options:
+        - label: No material AI-generated substantive content in this report that I have not independently reviewed.
+          required: false
+        - label: This report includes material AI-generated content, described below.
+          required: false
+
+  - type: textarea
+    id: ai-disclosure-detail
+    attributes:
+      label: AI-authorship — detail (if applicable)
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Submission acknowledgement*
+      options:
+        - label: I accept the APP Contribution Terms (CSL 1.0) and confirm this report does not include customer data, credentials, personal data of third parties, Interim-Custodian internal material, or any material in the `/SECURITY.md` *Never-in-repo* list.
+          required: true

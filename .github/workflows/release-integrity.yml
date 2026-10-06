@@ -1,0 +1,73 @@
+name: release-integrity
+
+# Does two things:
+#   1. For release PRs (changes under /releases/APP-YYYY-MM-RCn/),
+#      validates manifest integrity: file list matches, hashes match,
+#      no file edited under a tagged baseline directory, release notes
+#      updated, changelog entry present.
+#   2. For PRs touching paths that require Release Approver sign-off
+#      per GOVERNANCE.md §2.2 (release / scope / legal / schema /
+#      reference / normative), verifies the Release Approver sign-off
+#      section of the PR body is populated (not left as default
+#      placeholders).
+#
+# This is how differential sign-off is enforced on top of the uniform
+# "1 approval + CODEOWNER + status checks" ruleset.
+#
+# Required status check on main.
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, edited, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: release-integrity-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release-integrity:
+    name: Release integrity + sign-off verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v6.0.3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        working-directory: .github/scripts
+        run: pip install -r requirements.txt
+
+      - name: Compute changed-paths list and expose PR body
+        id: prctx
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          mkdir -p .github/scripts/_runtime
+          # Dump PR body to a file (the raw env var may be very long and
+          # may contain shell metacharacters).
+          printf '%s' "$PR_BODY" > .github/scripts/_runtime/pr_body.md
+          # Changed-paths list.
+          git diff --name-only "$BASE_SHA" "$HEAD_SHA" > .github/scripts/_runtime/changed_paths.txt
+          echo "Changed paths:"
+          cat .github/scripts/_runtime/changed_paths.txt
+
+      - name: Run release-integrity validator
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          PR_BODY_PATH: .github/scripts/_runtime/pr_body.md
+          CHANGED_PATHS_FILE: .github/scripts/_runtime/changed_paths.txt
+        run: python .github/scripts/validate_release_integrity.py
