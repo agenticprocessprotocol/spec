@@ -1,0 +1,90 @@
+# Validator allowlists for APP spec repository.
+#
+# This file records SPECIFIC, APPROVED exceptions to validator rules.
+# Changes to this file require Release Approver sign-off per GOVERNANCE.md §2.2
+# (it is under .github/scripts which is custodian-owned; sign-off applies
+# because an allowlist entry is a policy decision, not a code change).
+
+# ------------------------------------------------------------------
+# legacy_names: contexts where "PGP" references are expected to appear
+# because they document historical state (the pre-cascade name of the
+# protocol was Process Governance Protocol / PGP).
+#
+# The legacy-name validator will NOT flag matches that satisfy BOTH:
+#   - the file path matches one of the globs below AND
+#   - the matched line satisfies one of the context patterns below.
+# ------------------------------------------------------------------
+legacy_names:
+  file_globs:
+    # Version history entries in APP documents may reference prior PGP
+    # drafts; this is intentional historical attribution.
+    - "drafts/spec/**/*.md"
+    - "drafts/guides/**/*.md"
+    - "releases/**/*.md"
+    - "CHANGELOG.md"
+    # The CSL companion file for Scope records version history too.
+    - "csl/Scope.md"
+    # Allowlist file itself unavoidably mentions "PGP" to describe the rule.
+    - ".github/scripts/allowlist.yml"
+    - ".github/scripts/validate_legacy_names.py"
+
+  context_patterns:
+    # "Supersedes PGP-..." in a version history line.
+    - '(?i)supersedes\s+PGP-'
+    # Explicit "renamed from PGP..." or "formerly PGP..." lines.
+    - '(?i)(renamed|formerly|previously)\s+(from\s+)?PGP-'
+    # Historical reference lines in a Version history section.
+    - '(?i)version\s+history'
+    # A line inside a markdown blockquote citing a prior PGP document ID.
+    - '^\s*>\s.*PGP-'
+
+# ------------------------------------------------------------------
+# normative_keywords: files where diff lines containing RFC 2119 keywords
+# do NOT require a change-impact manifest. This covers purely informative
+# or infrastructure files that happen to use "MUST"/"SHOULD" in prose
+# about the governance process rather than specification requirements.
+# ------------------------------------------------------------------
+normative_keywords:
+  informative_paths:
+    - "CONTRIBUTING.md"
+    - "GOVERNANCE.md"
+    - "SECURITY.md"
+    - "SECURITY-AUTOMATION.md"
+    - "CODE_OF_CONDUCT.md"
+    - "README.md"
+    - "CHANGELOG.md"
+    - "OPERATIONS-REGISTRY.md"
+    - "LICENSE"
+    - "schemas/LICENSE"
+    - "reference/LICENSE"
+    - "tools/LICENSE"
+    - "csl/Governance.md"
+    - "csl/Notices.md"
+    - "drafts/guides/**"
+    - "guides/**"
+    - "decisions/**"
+    - "changes/**"
+    - ".github/**"
+    - "reference/**/README.md"
+
+# ------------------------------------------------------------------
+# cross_references: known-missing targets that are deliberately TBD and
+# should warn rather than error. Empty by default.
+# ------------------------------------------------------------------
+cross_references:
+  known_tbd_targets: []
+
+# ------------------------------------------------------------------
+# release_integrity: paths that trigger the Release Approver sign-off
+# verification check (the "classes" from GOVERNANCE.md §2.2).
+# ------------------------------------------------------------------
+release_integrity:
+  sign_off_required_paths:
+    - "releases/**"
+    - "csl/Scope.md"
+    - "csl/Governance.md"
+    - "csl/Notices.md"
+    - "legal/**"
+    - "schemas/**"
+    - "reference/**"
+    - "drafts/spec/**"  # catches most normative edits; the keyword validator does more precise detection

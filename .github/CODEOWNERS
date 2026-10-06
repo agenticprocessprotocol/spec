@@ -1,0 +1,84 @@
+# CODEOWNERS — APP specification repository
+#
+# This file maps repository paths to the GitHub team(s) whose review is
+# required before a pull request touching those paths may be merged.
+#
+# CODEOWNERS uses LAST-MATCH-WINS semantics. More specific patterns must
+# appear LATER in this file to override earlier general ones.
+#
+# These assignments only REQUEST review by default; the actual blocking
+# behaviour is set by the branch ruleset ("Require review from Code
+# Owners"), which is activated in Work Package 4.
+#
+# See /GOVERNANCE.md §2.2 for the approval policy that uses these
+# assignments.
+
+# ----------------------------------------------------------------------
+# Default: any path not matched below gets Release Approver review.
+# This covers top-level governance files (LICENSE, README, CONTRIBUTING,
+# GOVERNANCE, CODE_OF_CONDUCT, SECURITY, SECURITY-AUTOMATION, CHANGELOG,
+# and anything else at the root).
+# ----------------------------------------------------------------------
+*                                  @agenticprocessprotocol/release-approvers
+
+# ----------------------------------------------------------------------
+# Workflows and CI tooling — custodians own supply-chain concerns.
+# ----------------------------------------------------------------------
+/.github/workflows/**              @agenticprocessprotocol/custodians
+/.github/scripts/**                @agenticprocessprotocol/custodians
+/.github/actions/**                @agenticprocessprotocol/custodians
+/.github/dependabot.yml            @agenticprocessprotocol/custodians
+
+# CODEOWNERS itself: both custodians and release-approvers must sign off,
+# so no team can unilaterally expand its own review power.
+/.github/CODEOWNERS                @agenticprocessprotocol/custodians @agenticprocessprotocol/release-approvers
+
+# release-approvers.txt: dual control for the list of authorised sign-off
+# identities. Read from the base branch by release-integrity, so a PR cannot
+# use its own modified version to pass its check.
+/.github/release-approvers.txt     @agenticprocessprotocol/custodians @agenticprocessprotocol/release-approvers
+
+# Issue forms and PR template — editors can maintain, release-approvers
+# must co-review because template changes affect governance signalling.
+/.github/ISSUE_TEMPLATE/**         @agenticprocessprotocol/editors @agenticprocessprotocol/release-approvers
+/.github/pull_request_template.md  @agenticprocessprotocol/editors @agenticprocessprotocol/release-approvers
+
+# ----------------------------------------------------------------------
+# Legal, scope, decisions, releases — Release Approver authority.
+# ----------------------------------------------------------------------
+/legal/**                          @agenticprocessprotocol/release-approvers
+/csl/**                            @agenticprocessprotocol/release-approvers
+/decisions/**                      @agenticprocessprotocol/release-approvers
+/releases/**                       @agenticprocessprotocol/release-approvers
+
+# OPERATIONS-REGISTRY: dual control for App / permission grant integrity.
+/OPERATIONS-REGISTRY.md            @agenticprocessprotocol/custodians @agenticprocessprotocol/release-approvers
+
+# ----------------------------------------------------------------------
+# Specification drafts.
+# Normative drafts default to editors; APP-1 is elevated to custodians +
+# release-approvers because of its constitutional significance (listed
+# AFTER the general rule so it overrides).
+# ----------------------------------------------------------------------
+/drafts/spec/APP-[0-5]*            @agenticprocessprotocol/editors
+/drafts/spec/APP-1*                @agenticprocessprotocol/custodians @agenticprocessprotocol/release-approvers
+
+# Informative guides: editors.
+/drafts/guides/**                  @agenticprocessprotocol/editors
+/guides/**                         @agenticprocessprotocol/editors
+
+# ----------------------------------------------------------------------
+# Change-impact manifests — editors prepare, release-approvers verify.
+# ----------------------------------------------------------------------
+/changes/**                        @agenticprocessprotocol/editors @agenticprocessprotocol/release-approvers
+
+# ----------------------------------------------------------------------
+# Accompanying artefacts (informative, outside the Specification).
+# Publication clearance is a Release Approver act; editors do technical
+# review.
+# ----------------------------------------------------------------------
+/schemas/**                        @agenticprocessprotocol/editors @agenticprocessprotocol/release-approvers
+/reference/**                      @agenticprocessprotocol/editors @agenticprocessprotocol/release-approvers
+/tools/**                          @agenticprocessprotocol/custodians
+
+# End of CODEOWNERS.

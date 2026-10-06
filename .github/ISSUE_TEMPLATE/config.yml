@@ -1,0 +1,26 @@
+# Issue template config.
+# Blocks blank issues (forces use of a specific template) and redirects
+# question-type intake to GitHub Discussions.
+
+blank_issues_enabled: false
+
+contact_links:
+  - name: Ask a question
+    url: https://github.com/agenticprocessprotocol/spec/discussions/categories/getting-started-questions
+    about: Questions about the Specification go to GitHub Discussions, not Issues.
+
+  - name: Suggest a Working Group topic
+    url: https://github.com/agenticprocessprotocol/spec/discussions/categories/substantive-proposals
+    about: Open-ended proposals and discussion start in Discussions. If an actionable Normative Proposal emerges, open a Normative proposal Issue.
+
+  - name: Report a security vulnerability
+    url: https://github.com/agenticprocessprotocol/spec/security/advisories/new
+    about: Please use GitHub's private vulnerability reporting rather than a public Issue. Backup channel is security@agenticprocess.org. See SECURITY.md.
+
+  - name: Code of Conduct report
+    url: mailto:conduct@agenticprocess.org
+    about: Code of Conduct reports go to conduct@agenticprocess.org, not public Issues.
+
+  - name: Privacy inquiry
+    url: mailto:privacy@agenticprocess.org
+    about: Personal-data inquiries go to privacy@agenticprocess.org, not public Issues.
