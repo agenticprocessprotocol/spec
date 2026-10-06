@@ -1,0 +1,15 @@
+# Authorised Release Approver GitHub handles.
+#
+# One handle per line, without the leading @.
+# Blank lines and lines starting with # are ignored.
+#
+# Read by .github/scripts/validate_release_integrity.py FROM THE BASE
+# BRANCH (not the PR head). A hostile PR that tried to add its own
+# author to this file could not use the modified version to pass its
+# own check — the base branch's version is the one consulted.
+#
+# Changes to this file require CODEOWNER review by both
+# @agenticprocessprotocol/custodians and
+# @agenticprocessprotocol/release-approvers per .github/CODEOWNERS.
+
+vaidhya-vach
