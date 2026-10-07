@@ -46,6 +46,12 @@ legacy_names:
 # ------------------------------------------------------------------
 normative_keywords:
   informative_paths:
+    # Published, frozen release trees. Content under /releases/** is
+    # immutable snapshot captured by the baseline tag; integrity is
+    # verified by the manifest validator. Normative-keyword presence
+    # there is expected (the released Specification contains them) and
+    # does not represent a change requiring a change-impact manifest.
+    - "releases/**"
     - "CONTRIBUTING.md"
     - "GOVERNANCE.md"
     - "SECURITY.md"
