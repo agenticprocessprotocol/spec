@@ -27,9 +27,13 @@ from collections import defaultdict
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from common import ROOT, Reporter, iter_markdown_files, load_allowlist, main_guard
 
-REQ_ID = re.compile(r"\b([A-Z]{3,5}-[A-Z0-9]{1,4}(?:-\d{1,3}){1,3})\b")
-DEFINITION_HEADER = re.compile(r"^#{2,6}\s+([A-Z]{3,5}-[A-Z0-9]{1,4}(?:-\d{1,3}){1,3})\b")
-DEFINITION_LIST_BOLD = re.compile(r"^\s*[-*]\s+\*\*([A-Z]{3,5}-[A-Z0-9]{1,4}(?:-\d{1,3}){1,3})\*\*")
+# Requirement IDs use known APP requirement-family prefixes.
+# Document IDs (APP-IG-NN, APP-N) are intentionally NOT matched —
+# they identify DOCUMENTS, not requirements.
+_REQ_PREFIX = r"(?:CORE|SEC|EC|CP|CONF|XX|T)"
+REQ_ID = re.compile(r"\b(" + _REQ_PREFIX + r"-[A-Z0-9]{1,4}(?:-[A-Z0-9]{1,4}){0,3})\b")
+DEFINITION_HEADER = re.compile(r"^#{2,6}\s+(" + _REQ_PREFIX + r"-[A-Z0-9]{1,4}(?:-[A-Z0-9]{1,4}){0,3})\b")
+DEFINITION_LIST_BOLD = re.compile(r"^\s*[-*]\s+\*\*(" + _REQ_PREFIX + r"-[A-Z0-9]{1,4}(?:-[A-Z0-9]{1,4}){0,3})\*\*")
 
 HEADING = re.compile(r"^(#{1,6})\s+(.*)$")
 SECTION_REF = re.compile(r"\bAPP-([0-9]|IG-\d{2})\s+§([A-Za-z0-9\.\-]+)")
@@ -37,9 +41,22 @@ SECTION_REF = re.compile(r"\bAPP-([0-9]|IG-\d{2})\s+§([A-Za-z0-9\.\-]+)")
 MD_LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 
 
+def _is_release_snapshot(f: pathlib.Path) -> bool:
+    """True if the file sits under /releases/** (frozen baseline snapshot).
+    Release content duplicates the live source by design — skipping it here
+    avoids false 'duplicate definition' errors."""
+    try:
+        rel = f.relative_to(ROOT)
+    except ValueError:
+        return False
+    return rel.parts and rel.parts[0] == "releases"
+
+
 def _collect_definitions(files: list[pathlib.Path]) -> dict[str, list[tuple[pathlib.Path, int]]]:
     defs: dict[str, list[tuple[pathlib.Path, int]]] = defaultdict(list)
     for f in files:
+        if _is_release_snapshot(f):
+            continue
         try:
             text = f.read_text(encoding="utf-8")
         except OSError:
