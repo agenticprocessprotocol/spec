@@ -1,6 +1,7 @@
 {
   "schema_version": "1.0",
-  "baseline": {
+  "baseline": "APP-2026-10-RC1",
+  "baseline_meta": {
     "id": "APP-2026-10-RC1",
     "date": "2026-10-07",
     "status": "Draft Specification under CSL 1.0 §9.6",
@@ -9,6 +10,66 @@
     "licence_schemas_and_reference": "Apache-2.0"
   },
   "files": [
+    {
+      "path": "KNOWN_ISSUES.md",
+      "sha256": "966886c8460cc3f57629944a4d66ede2afca3f5f9a92e23f083e4a3c8e840a69"
+    },
+    {
+      "path": "MANIFEST.md",
+      "sha256": "2892e5318fada110b52a20327cd4e1f19d74e80ae02ac29fbf67e5ca172f2e02"
+    },
+    {
+      "path": "RELEASE-NOTES.md",
+      "sha256": "00a1e6f425876d2cc32d072b556496d354830cd859a4863d65a605f0c67548fb"
+    },
+    {
+      "path": "csl/Scope.md",
+      "sha256": "919c67b359e236169c3fb26242e23c37e8e93713511801d6209eecc731888587"
+    },
+    {
+      "path": "guides/APP-2_Plain_Language_Guide_v0_2.md",
+      "sha256": "89daabc87b77ecd75a67b51ba1de68a9042efd9650fbf2a0f6b285cebf735dfa"
+    },
+    {
+      "path": "guides/APP-3_Plain_Language_Guide_v0_2.md",
+      "sha256": "8d52cba51d11d0f23fb18baff4c6c5e7fc38ae8aefa174d224b0a6b1b05ee95a"
+    },
+    {
+      "path": "guides/APP-4_Plain_Language_Guide_v0_2.md",
+      "sha256": "dc4d1fa4d55d21dca234e6539aeee15a3dcf914f19220efa2d8697a3953fbfd3"
+    },
+    {
+      "path": "guides/APP_Plain_Language_Guide_v0_1.md",
+      "sha256": "58c567c4971a8e0b32889cf51be7df6c17ed17680ba45702c7cfb4503700e614"
+    },
+    {
+      "path": "legal/APP_Consultation_Privacy_Notice_v0_3.md",
+      "sha256": "17e6daa6dfa5fe4abf6daf52a0a855ed9c6a65a718179473dac4c488abbe1dc3"
+    },
+    {
+      "path": "legal/APP_Contribution_Terms_v0_2.md",
+      "sha256": "259a541f5e4fa1de58719f2e704dce6ea8fffce176844148188e0cab2ec4ce78"
+    },
+    {
+      "path": "legal/APP_WG_Data_Handling_Charter_v0_3.md",
+      "sha256": "bc510ed0e12417c395871f808dfb1aa6a7e8beeb7fed5ec4f4cfd5526addce49"
+    },
+    {
+      "path": "reference/mcp-server/DESIGN.md",
+      "sha256": "5da2691733f31dc9f5e5ea3769798a093f90dbd276bc07a3b6c6a71de83a919c"
+    },
+    {
+      "path": "schemas/frame/0.3.0/NOTES.md",
+      "sha256": "cce0908f7728a4ca8dfd91b12f49597e07dc5d4f7254b13d7826248c67ba58c1"
+    },
+    {
+      "path": "schemas/frame/0.3.0/examples/frame.example.json",
+      "sha256": "56a18407e4bec713b0b10bc559536493202d6cba95d6f3b2246b67e9e603a04e"
+    },
+    {
+      "path": "schemas/frame/0.3.0/frame.schema.json",
+      "sha256": "9285b898fd12b72009c02cb5a4d787fbf4539ee0b891a3d8dd5760542f853573"
+    },
     {
       "path": "spec/APP-0_Protocol_Objectives_v0_14_Draft.md",
       "sha256": "70237317c8bd41267be0c74f4f7b8098022aba1c1aed1c817a1abdfe06a5a501"
@@ -52,54 +113,6 @@
     {
       "path": "spec/APP-IG-05_Protocol_Objectives_Realisation_and_Assurance_Guide_v0_12_Draft.md",
       "sha256": "1613bc6a321c9cfba3577150e43923dec7add3750f0c29bc7099a607ea9d32eb"
-    },
-    {
-      "path": "guides/APP_Plain_Language_Guide_v0_1.md",
-      "sha256": "58c567c4971a8e0b32889cf51be7df6c17ed17680ba45702c7cfb4503700e614"
-    },
-    {
-      "path": "guides/APP-2_Plain_Language_Guide_v0_2.md",
-      "sha256": "89daabc87b77ecd75a67b51ba1de68a9042efd9650fbf2a0f6b285cebf735dfa"
-    },
-    {
-      "path": "guides/APP-3_Plain_Language_Guide_v0_2.md",
-      "sha256": "8d52cba51d11d0f23fb18baff4c6c5e7fc38ae8aefa174d224b0a6b1b05ee95a"
-    },
-    {
-      "path": "guides/APP-4_Plain_Language_Guide_v0_2.md",
-      "sha256": "dc4d1fa4d55d21dca234e6539aeee15a3dcf914f19220efa2d8697a3953fbfd3"
-    },
-    {
-      "path": "legal/APP_Contribution_Terms_v0_2.md",
-      "sha256": "259a541f5e4fa1de58719f2e704dce6ea8fffce176844148188e0cab2ec4ce78"
-    },
-    {
-      "path": "legal/APP_WG_Data_Handling_Charter_v0_3.md",
-      "sha256": "bc510ed0e12417c395871f808dfb1aa6a7e8beeb7fed5ec4f4cfd5526addce49"
-    },
-    {
-      "path": "legal/APP_Consultation_Privacy_Notice_v0_3.md",
-      "sha256": "17e6daa6dfa5fe4abf6daf52a0a855ed9c6a65a718179473dac4c488abbe1dc3"
-    },
-    {
-      "path": "csl/Scope.md",
-      "sha256": "919c67b359e236169c3fb26242e23c37e8e93713511801d6209eecc731888587"
-    },
-    {
-      "path": "schemas/frame/0.3.0/frame.schema.json",
-      "sha256": "9285b898fd12b72009c02cb5a4d787fbf4539ee0b891a3d8dd5760542f853573"
-    },
-    {
-      "path": "schemas/frame/0.3.0/NOTES.md",
-      "sha256": "cce0908f7728a4ca8dfd91b12f49597e07dc5d4f7254b13d7826248c67ba58c1"
-    },
-    {
-      "path": "schemas/frame/0.3.0/examples/frame.example.json",
-      "sha256": "56a18407e4bec713b0b10bc559536493202d6cba95d6f3b2246b67e9e603a04e"
-    },
-    {
-      "path": "reference/mcp-server/DESIGN.md",
-      "sha256": "5da2691733f31dc9f5e5ea3769798a093f90dbd276bc07a3b6c6a71de83a919c"
     }
   ],
   "specification": [
