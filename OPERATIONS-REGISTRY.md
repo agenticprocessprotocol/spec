@@ -104,6 +104,8 @@ Repository secrets are introduced only where strictly required, by Release Appro
 
 ## 9. Removals and transitions
 
+2026-10-07 — APP-2026-10-RC1 tag created and GitHub Release published. Approver: @APPcustodian (Vaidhya). Reviewer on PR #7: @bhavna-vach.
+
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
 ---
