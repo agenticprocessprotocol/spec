@@ -1,0 +1,850 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agenticprocess.org/schemas/frame/0.3.0/frame.schema.json",
+  "title": "APP Process Frame",
+  "description": "APP-R1 Illustrative Reference, v0.3.0. Non-normative reference realisation of CORE-A1-05's published Frame schema requirement; implementations may deliver equivalent conformance via other schema realisations. Derived from APP-2026-10-RC1 coordinated baseline: APP-2 (CORE-A0, A1-05, A3, A4, A5, A8, A9, XX-01), APP-3 (SEC-S1-01..04, S6-01), APP-4 (EC-01/01a/02/39). Structural validation only; semantic checks are listed in the accompanying notes. Validators MUST enable format assertion for date-time and date.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "app_baseline",
+    "frame_id",
+    "frame_version",
+    "lifecycle_state",
+    "intent",
+    "steps",
+    "provenance",
+    "signature"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "0.3.0"
+    },
+    "app_baseline": {
+      "type": "string",
+      "pattern": "^APP-[0-9]{4}-[0-9]{2}-RC[0-9]+$|^APP-[0-9]{4}-[0-9]{2}$",
+      "description": "Coordinated APP baseline the Frame was authored against."
+    },
+    "frame_id": {
+      "$ref": "#/$defs/identifier",
+      "description": "Stable identifier of the governed process."
+    },
+    "frame_version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Monotonic version (SEC-S1-03)."
+    },
+    "title": {
+      "type": "string"
+    },
+    "intent": {
+      "$ref": "#/$defs/intent"
+    },
+    "orchestration": {
+      "$ref": "#/$defs/orchestration"
+    },
+    "compliance_scoped": {
+      "type": "boolean",
+      "description": "Process is compliance-scoped (SEC-S6-01 absence check applies)."
+    },
+    "source_provenance": {
+      "type": "array",
+      "description": "SEC-S1-04: source material the Frame was constructed from. Required where construction proceeded from source material.",
+      "items": {
+        "$ref": "#/$defs/source_record"
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/step"
+      }
+    },
+    "provenance": {
+      "type": "array",
+      "minItems": 1,
+      "description": "SEC-S1-02: append-only mutation provenance chain.",
+      "items": {
+        "$ref": "#/$defs/provenance_entry"
+      }
+    },
+    "signature": {
+      "$ref": "#/$defs/signature"
+    },
+    "extensions": {
+      "$ref": "#/$defs/extensions"
+    },
+    "lifecycle_state": {
+      "enum": [
+        "seed",
+        "observed",
+        "validated",
+        "mature"
+      ],
+      "description": "CORE-A9-01 Frame lifecycle state. Transitions are Frame mutations recorded in provenance (CORE-A9-02)."
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "principal_ref": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "human",
+            "service",
+            "agent",
+            "role"
+          ]
+        }
+      }
+    },
+    "digest": {
+      "type": "object",
+      "required": [
+        "alg",
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "alg": {
+          "enum": [
+            "SHA-256"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "description": "Detached signature over the RFC 8785 (JCS) canonical form of the enclosing object with this member removed.",
+      "required": [
+        "alg",
+        "key_id",
+        "value",
+        "canonicalization"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "alg": {
+          "enum": [
+            "Ed25519"
+          ],
+          "description": "APP-3 Appendix B."
+        },
+        "key_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Resolves to the signer's registered identity (SEC-S1-01). Resolution method is implementation-defined."
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]+$",
+          "description": "base64url, unpadded."
+        },
+        "canonicalization": {
+          "const": "RFC8785",
+          "description": "JCS. Pinned by this schema pending APP-3 Appendix B (register T-01)."
+        }
+      }
+    },
+    "intent": {
+      "type": "object",
+      "description": "CORE-A4-01 intent layer: who authorised the Frame.",
+      "required": [
+        "authored_by",
+        "approval"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "authored_by": {
+          "$ref": "#/$defs/principal_ref"
+        },
+        "approval": {
+          "type": "object",
+          "required": [
+            "approved_by",
+            "approved_at"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "approved_by": {
+              "$ref": "#/$defs/principal_ref"
+            },
+            "approved_at": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "approval_record_ref": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "orchestration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "structured",
+            "p_orchestrated"
+          ],
+          "description": "CORE-A4-04: process is P-orchestrated. Steps are then the governed steps available to the orchestrator; execution order is determined at runtime within depends_on constraints."
+        },
+        "completion_gate": {
+          "enum": [
+            "none",
+            "review",
+            "attestation"
+          ],
+          "description": "CORE-A4-05 (Recommended Pattern)."
+        }
+      }
+    },
+    "source_record": {
+      "type": "object",
+      "required": [
+        "source_ref",
+        "digest",
+        "submitted_by",
+        "registered_at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "submitted_by": {
+          "$ref": "#/$defs/principal_ref"
+        },
+        "registered_at": {
+          "$ref": "#/$defs/timestamp"
+        }
+      }
+    },
+    "provenance_entry": {
+      "type": "object",
+      "required": [
+        "sequence",
+        "frame_version",
+        "change_type",
+        "signed_by",
+        "authorised_by",
+        "governance_classification",
+        "recorded_at",
+        "signature"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "frame_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "change_type": {
+          "enum": [
+            "create",
+            "forward",
+            "rollback"
+          ]
+        },
+        "change_ref": {
+          "type": "string"
+        },
+        "signed_by": {
+          "$ref": "#/$defs/principal_ref"
+        },
+        "authorised_by": {
+          "$ref": "#/$defs/principal_ref"
+        },
+        "governance_classification": {
+          "enum": [
+            "governance-complete",
+            "partial",
+            "absent"
+          ],
+          "description": "CORE-A1-02."
+        },
+        "rollback_approval_ref": {
+          "type": "string",
+          "description": "SEC-S1-03: explicit governance approval for a rollback."
+        },
+        "prior_link_digest": {
+          "$ref": "#/$defs/digest",
+          "description": "SHA-256 over the JCS form of the immediately preceding provenance entry, including its signature. Required on every entry after create (SEC-S1-02 'verifiable link')."
+        },
+        "recorded_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "signature": {
+          "$ref": "#/$defs/signature"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "change_type": {
+                "const": "rollback"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "rollback_approval_ref"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "change_type": {
+                "enum": [
+                  "forward",
+                  "rollback"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "prior_link_digest"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "change_type": {
+                "const": "create"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "sequence": {
+                "const": 1
+              }
+            },
+            "not": {
+              "required": [
+                "prior_link_digest"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "executing_system": {
+      "type": "object",
+      "required": [
+        "system_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "system_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "integration_level": {
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4"
+          ]
+        },
+        "expected_trust_boundary_type": {
+          "enum": [
+            "internal",
+            "enterprise-external",
+            "cross-enterprise-external",
+            "unmanaged"
+          ],
+          "description": "Declared expectation, using the CORE-A2-03 vocabulary. The PxER field trustBoundaryType records the observed value; this field does not substitute for it."
+        }
+      }
+    },
+    "classification_provenance": {
+      "type": "object",
+      "description": "CORE-A8-01/02.",
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "enum": [
+            "born",
+            "extracted_design",
+            "earned_runtime",
+            "declared",
+            "permanent_P"
+          ]
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "promotion_evidence": {
+          "type": "object",
+          "required": [
+            "evidence_count",
+            "evidence_window",
+            "validator_role",
+            "validation_date",
+            "demotion_conditions",
+            "prior_classification"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "evidence_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "evidence_window": {
+              "type": "string"
+            },
+            "validator_role": {
+              "type": "string"
+            },
+            "validation_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "demotion_conditions": {
+              "type": "string"
+            },
+            "prior_classification": {
+              "enum": [
+                "D",
+                "P"
+              ]
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "value": {
+                "enum": [
+                  "declared",
+                  "permanent_P"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "justification"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "value": {
+                "enum": [
+                  "extracted_design",
+                  "earned_runtime"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "promotion_evidence"
+            ]
+          }
+        }
+      ]
+    },
+    "compliance_ref": {
+      "type": "object",
+      "required": [
+        "constraint_id",
+        "authorship_marker",
+        "criticality"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "constraint_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authorship_marker": {
+          "enum": [
+            "external-mandated",
+            "enterprise-authored"
+          ],
+          "description": "CORE-A5-01."
+        },
+        "criticality": {
+          "enum": [
+            "C0",
+            "C1",
+            "C2",
+            "C3C4"
+          ],
+          "description": "APP-2 \u00a76 four-point ordinal."
+        },
+        "governed_exception": {
+          "type": "object",
+          "description": "CORE-A5-03.",
+          "required": [
+            "exception_id",
+            "authority_reference"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "exception_id": {
+              "type": "string"
+            },
+            "authority_reference": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "entity_extract_entry": {
+      "type": "object",
+      "description": "APP-4 EC-01/02.",
+      "required": [
+        "field_path",
+        "entity_type",
+        "role"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "field_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entity_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "enum": [
+            "primary_key",
+            "context_key",
+            "reference"
+          ]
+        }
+      }
+    },
+    "step": {
+      "type": "object",
+      "required": [
+        "step_id",
+        "executing_system",
+        "dp_classification_intended",
+        "depends_on",
+        "accountability_owner"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "step_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string"
+        },
+        "executing_system": {
+          "$ref": "#/$defs/executing_system"
+        },
+        "dp_classification_intended": {
+          "enum": [
+            "D",
+            "P"
+          ],
+          "description": "CORE-A0-01, A3-01."
+        },
+        "p_level": {
+          "enum": [
+            "task",
+            "orchestration"
+          ],
+          "description": "CORE-A3-04. Required when P."
+        },
+        "classification_provenance": {
+          "$ref": "#/$defs/classification_provenance"
+        },
+        "depends_on": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "description": "CORE-A0-01 dependency chain. Empty for entry steps."
+        },
+        "accountability_owner": {
+          "$ref": "#/$defs/principal_ref",
+          "description": "CORE-A0-01, A4-01."
+        },
+        "compliance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/compliance_ref"
+          },
+          "description": "CORE-A5-02."
+        },
+        "degradation_behaviour": {
+          "enum": [
+            "fail_closed",
+            "fail_open"
+          ],
+          "description": "CORE-XX-01."
+        },
+        "hitl": {
+          "type": "object",
+          "required": [
+            "required"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "engagement_level": {
+              "enum": [
+                "acknowledge",
+                "content_review",
+                "attestation"
+              ],
+              "description": "CORE-A6-04 (Recommended Pattern)."
+            }
+          },
+          "description": "Oversight configuration declared in the Frame (CORE-A0-02). Not A6 engagement evidence, which is recorded in the PxER."
+        },
+        "autonomy_mode": {
+          "enum": [
+            "supervised",
+            "autonomous"
+          ],
+          "description": "Referenced by SEC-S6-03."
+        },
+        "entity_extract": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entity_extract_entry"
+          },
+          "description": "APP-4 EC-01/02. Changes are signed Frame mutations (EC-01a). Field paths must be minimised (EC-39)."
+        },
+        "recovery_policy_ref": {
+          "type": "string",
+          "description": "CORE-A4-06 intent layer."
+        },
+        "d_potential": {
+          "type": "string",
+          "description": "CORE-A0-02 (Recommended Pattern). Semantics implementation-defined."
+        },
+        "promotion_target": {
+          "type": "string",
+          "description": "CORE-A0-02 (Recommended Pattern)."
+        },
+        "sla": {
+          "type": "object",
+          "description": "CORE-A0-02 (Recommended Pattern). Structure implementation-defined."
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        },
+        "compliance_scoped": {
+          "type": "boolean",
+          "description": "Step is compliance-scoped (SEC-S6-01)."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "dp_classification_intended": {
+                "const": "P"
+              }
+            },
+            "required": [
+              "dp_classification_intended"
+            ]
+          },
+          "then": {
+            "required": [
+              "p_level"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "dp_classification_intended": {
+                "const": "D"
+              }
+            },
+            "required": [
+              "dp_classification_intended"
+            ]
+          },
+          "then": {
+            "required": [
+              "classification_provenance"
+            ],
+            "properties": {
+              "classification_provenance": {
+                "properties": {
+                  "value": {
+                    "enum": [
+                      "born",
+                      "extracted_design",
+                      "earned_runtime",
+                      "declared"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification_provenance": {
+                "properties": {
+                  "value": {
+                    "const": "permanent_P"
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            },
+            "required": [
+              "classification_provenance"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dp_classification_intended": {
+                "const": "P"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "compliance": {
+                "contains": {
+                  "properties": {
+                    "criticality": {
+                      "const": "C2"
+                    }
+                  },
+                  "required": [
+                    "criticality"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "compliance"
+            ]
+          },
+          "then": {
+            "required": [
+              "degradation_behaviour"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "compliance": {
+                "contains": {
+                  "properties": {
+                    "criticality": {
+                      "enum": [
+                        "C0",
+                        "C1"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "criticality"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "compliance"
+            ]
+          },
+          "then": {
+            "properties": {
+              "degradation_behaviour": {
+                "const": "fail_closed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "compliance": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "compliance"
+            ]
+          },
+          "then": {
+            "properties": {
+              "compliance_scoped": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Vendor extensions. Keys are reversed-domain prefixed, e.g. com.example/field. Consumers ignore unknown extensions; extensions MUST NOT alter the meaning of core fields.",
+      "propertyNames": {
+        "pattern": "^[a-z0-9]+(\\.[a-z0-9-]+)+/[A-Za-z0-9._-]+$"
+      }
+    }
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "schema_version": "0.3.0",
+  "app_baseline": "APP-2026-10-RC1",
+  "frame_id": "supplier-payment-exception",
+  "frame_version": 2,
+  "title": "Supplier payment exception handling",
+  "intent": {
+    "authored_by": {
+      "id": "u-process-owner-01",
+      "kind": "human"
+    },
+    "approval": {
+      "approved_by": {
+        "id": "u-controller-02",
+        "kind": "human"
+      },
+      "approved_at": "2026-09-20T10:00:00Z",
+      "approval_record_ref": "approval-7781"
+    }
+  },
+  "orchestration": {
+    "mode": "structured",
+    "completion_gate": "review"
+  },
+  "compliance_scoped": true,
+  "source_provenance": [
+    {
+      "source_ref": "sop/ap-exceptions-v4",
+      "digest": {
+        "alg": "SHA-256",
+        "value": "3b8f0c1a9d2e4f5061728394a5b6c7d8e9f00112233445566778899aabbccdd0"
+      },
+      "submitted_by": {
+        "id": "u-process-owner-01",
+        "kind": "human"
+      },
+      "registered_at": "2026-09-01T09:00:00Z"
+    }
+  ],
+  "steps": [
+    {
+      "step_id": "invoice-ingestion",
+      "executing_system": {
+        "system_id": "erp",
+        "integration_level": "L3",
+        "expected_trust_boundary_type": "internal"
+      },
+      "dp_classification_intended": "D",
+      "classification_provenance": {
+        "value": "born"
+      },
+      "depends_on": [],
+      "accountability_owner": {
+        "id": "role-ap-lead",
+        "kind": "role"
+      },
+      "compliance": [
+        {
+          "constraint_id": "ctl-invoice-completeness",
+          "authorship_marker": "enterprise-authored",
+          "criticality": "C3C4"
+        }
+      ],
+      "entity_extract": [
+        {
+          "field_path": "$.invoice.supplier_id",
+          "entity_type": "supplier",
+          "role": "primary_key"
+        }
+      ],
+      "compliance_scoped": true
+    },
+    {
+      "step_id": "exception-assessment",
+      "executing_system": {
+        "system_id": "agent-platform",
+        "integration_level": "L2",
+        "expected_trust_boundary_type": "internal"
+      },
+      "dp_classification_intended": "P",
+      "p_level": "task",
+      "depends_on": [
+        "invoice-ingestion"
+      ],
+      "accountability_owner": {
+        "id": "role-ap-lead",
+        "kind": "role"
+      },
+      "compliance": [
+        {
+          "constraint_id": "tmpl-ap-exception-policy",
+          "authorship_marker": "external-mandated",
+          "criticality": "C2"
+        }
+      ],
+      "degradation_behaviour": "fail_closed",
+      "hitl": {
+        "required": false
+      },
+      "compliance_scoped": true
+    },
+    {
+      "step_id": "threshold-approval",
+      "executing_system": {
+        "system_id": "approval-surface",
+        "integration_level": "L3"
+      },
+      "dp_classification_intended": "D",
+      "classification_provenance": {
+        "value": "declared",
+        "justification": "Approval routing is rule-based by amount band."
+      },
+      "depends_on": [
+        "exception-assessment"
+      ],
+      "accountability_owner": {
+        "id": "role-controller",
+        "kind": "role"
+      },
+      "compliance": [
+        {
+          "constraint_id": "sox-dual-approval",
+          "authorship_marker": "external-mandated",
+          "criticality": "C0"
+        }
+      ],
+      "degradation_behaviour": "fail_closed",
+      "hitl": {
+        "required": true,
+        "engagement_level": "attestation"
+      },
+      "compliance_scoped": true
+    },
+    {
+      "step_id": "payment-release",
+      "executing_system": {
+        "system_id": "payments",
+        "integration_level": "L2",
+        "expected_trust_boundary_type": "enterprise-external"
+      },
+      "dp_classification_intended": "D",
+      "classification_provenance": {
+        "value": "born"
+      },
+      "depends_on": [
+        "threshold-approval"
+      ],
+      "accountability_owner": {
+        "id": "role-treasury",
+        "kind": "role"
+      },
+      "compliance": [
+        {
+          "constraint_id": "ctl-payment-release",
+          "authorship_marker": "external-mandated",
+          "criticality": "C1"
+        }
+      ],
+      "compliance_scoped": true
+    }
+  ],
+  "provenance": [
+    {
+      "sequence": 1,
+      "frame_version": 1,
+      "change_type": "create",
+      "signed_by": {
+        "id": "u-process-owner-01",
+        "kind": "human"
+      },
+      "authorised_by": {
+        "id": "u-controller-02",
+        "kind": "human"
+      },
+      "governance_classification": "governance-complete",
+      "signature": {
+        "alg": "Ed25519",
+        "key_id": "k-po-01",
+        "value": "c2lnbmF0dXJlLXBsYWNlaG9sZGVyLTE",
+        "canonicalization": "RFC8785"
+      },
+      "recorded_at": "2026-09-10T10:00:00Z"
+    },
+    {
+      "sequence": 2,
+      "frame_version": 2,
+      "change_type": "forward",
+      "change_ref": "chg-0042",
+      "signed_by": {
+        "id": "svc-agent-builder",
+        "kind": "service"
+      },
+      "authorised_by": {
+        "id": "u-controller-02",
+        "kind": "human"
+      },
+      "governance_classification": "governance-complete",
+      "signature": {
+        "alg": "Ed25519",
+        "key_id": "k-ab-07",
+        "value": "c2lnbmF0dXJlLXBsYWNlaG9sZGVyLTI",
+        "canonicalization": "RFC8785"
+      },
+      "recorded_at": "2026-09-11T10:00:00Z",
+      "prior_link_digest": {
+        "alg": "SHA-256",
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    }
+  ],
+  "signature": {
+    "alg": "Ed25519",
+    "key_id": "k-go-01",
+    "value": "c2lnbmF0dXJlLXBsYWNlaG9sZGVyLTM",
+    "canonicalization": "RFC8785"
+  },
+  "lifecycle_state": "validated"
+}
