@@ -106,6 +106,23 @@ Repository secrets are introduced only where strictly required, by Release Appro
 
 2026-10-07 — APP-2026-10-RC1 tag created and GitHub Release published. Approver: @APPcustodian (Vaidhya). Reviewer on PR #7: @bhavna-vach.
 
+# 2026-10-07 — Legal instrument activation
+
+- `legal/APP_Contribution_Terms_v0_3.md` — Effective 2026-10-07
+- `legal/APP_Consultation_Privacy_Notice_v0_4.md` — Effective 2026-10-07
+- `legal/REVIEW-STATUS.md` — Successor Foundation review items disclosed
+
+Committed directly to main by Release Approver (APPcustodian / Vaidhya).
+Direct-commit path used; Package 4 `main` ruleset not yet active.
+Validators (validate-spec, links) ran and passed on push.
+Release-integrity and DCO checks did not fire (pull_request-triggered only);
+sign-off is in the Release Approver's committer identity on the commits.
+
+Approved content per prior session planning; no retrospective PR needed.
+
+**KI-09 relevance:** this is the kind of event Package 4 activation prevents.
+Tracked.
+
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
 ---
