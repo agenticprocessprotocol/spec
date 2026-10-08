@@ -160,6 +160,29 @@ Two corrections to the 2026-10-08 entry above:
 
 Approved by Vaidhya, Release Approver.
 
+## 2026-10-08 — Parallel Claude Code session note
+
+Two Claude Code sessions committed to main on 2026-10-08:
+- Session A (desktop Code tab, Vaidhya): governance commits with
+  explicit Release Approver approval
+- Session B (web-chat-triggered, Claude): commit 1395f93 to
+  APP-DEC-0003 adding Issue number column
+
+Session B commit content was correct and intended. Attribution
+and approval line were not applied because the session was
+triggered via web chat without passing through the Code tab
+approval pattern.
+
+Going forward: APP operations route through the Code tab
+session (Session A) only. Web chat prepares instructions as
+text; execution happens in Code tab with explicit Release
+Approver approval.
+
+KI-09 relevance: this is another instance Package 4 ruleset
+activation would prevent.
+
+Approved by Vaidhya, Release Approver.
+
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
 ---
