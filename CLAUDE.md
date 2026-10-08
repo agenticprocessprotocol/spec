@@ -50,11 +50,6 @@ flag it to the Release Approver and pause until the Release
 Approver designates a single executing session for the 
 operation.
 
-The Code tab session is the authoritative Claude Code session 
-for agenticprocessprotocol/spec. Parallel-session capability is 
-not used until team scale and Package 4 ruleset activation 
-warrant it.
-
 ## Approval boundaries
 
 Require explicit confirmation naming the action for every 
