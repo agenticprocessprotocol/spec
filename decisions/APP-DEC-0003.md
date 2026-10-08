@@ -98,18 +98,18 @@ The following five Known Issues are closed at creation. Each is created as a Git
 
 ## Appendix B — Disposition summary table
 
-| KI | Topic | Disposition | GitHub Issue state | Resolution ref |
-|:---|:---|:---|:---|:---|
-| KI-01 | PLG gap APP-0/1/5 | Closed — resolved by design | Closed at creation | Suite PLG v0.1 §4, §5 |
-| KI-02 | Contribution Terms effective date | Closed — resolved | Closed at creation | Contribution Terms v0.3 |
-| KI-03 | Privacy Notice effective date | Closed — resolved | Closed at creation | Privacy Notice v0.4 |
-| KI-04 | csl/ files frozen scope | Closed — not an issue | Closed at creation | KNOWN_ISSUES.md KI-04 (deliberate label) |
-| KI-05 | Approved Specification transition | Open | Open | WG formation |
-| KI-06 | Schema evolution path | Closed — resolved | Closed at creation | APP-1 v1.5 §4 three-tier taxonomy |
-| KI-07 | Scope §2 successor-document route | Open | Open | WG review |
-| KI-08 | MCP reference code | Open | Open | Follow-up release |
-| KI-09 | Ruleset activation audit | Open | Open | Package 4 |
-| KI-10 | Public consultation first window | Open | Open | WG precondition |
+| KI | Topic | Disposition | GitHub Issue | GitHub Issue state | Resolution ref |
+|:---|:---|:---|:---|:---|:---|
+| KI-01 | PLG gap APP-0/1/5 | Closed — resolved by design | #8 | Closed at creation | Suite PLG v0.1 §4, §5 |
+| KI-02 | Contribution Terms effective date | Closed — resolved | #9 | Closed at creation | Contribution Terms v0.3 |
+| KI-03 | Privacy Notice effective date | Closed — resolved | #10 | Closed at creation | Privacy Notice v0.4 |
+| KI-04 | csl/ files frozen scope | Closed — not an issue | #11 | Closed at creation | KNOWN_ISSUES.md KI-04 (deliberate label) |
+| KI-05 | Approved Specification transition | Open | #13 | Open | WG formation |
+| KI-06 | Schema evolution path | Closed — resolved | #12 | Closed at creation | APP-1 v1.5 §4 three-tier taxonomy |
+| KI-07 | Scope §2 successor-document route | Open | #14 | Open | WG review |
+| KI-08 | MCP reference code | Open | #15 | Open | Follow-up release |
+| KI-09 | Ruleset activation audit | Open | #16 | Open | Package 4 |
+| KI-10 | Public consultation first window | Open | #17 | Open | WG precondition |
 
 **Totals:** 5 closed, 5 open.
 
