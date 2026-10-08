@@ -42,6 +42,8 @@ This file records every operational element of the Agentic Process Protocol repo
 | App | Publisher | Scope | Permissions | Approver | Installation date | Verification notes |
 |---|---|---|---|---|---|---|
 | *(none yet)* | | | | | | DCO App to be installed at Package 4 per admission checklist in `SECURITY-AUTOMATION.md` §2 |
+| Claude GitHub App | Anthropic | User account `APPcustodian` (Personal) — All repositories | *(to be captured)* | Vaidhya (Release Approver) | 2026-10-XX | Recorded 2026-10-08 (see §9). Admission checklist values not yet captured |
+| Claude GitHub App | Anthropic | Organisation `agenticprocessprotocol` — All repositories | *(to be captured)* | Vaidhya (Release Approver) | 2026-10-XX | Recorded 2026-10-08 (see §9). Admission checklist values not yet captured |
 
 ### DCO App installation — admission checklist values (populated at Package 4)
 
@@ -122,6 +124,24 @@ Approved content per prior session planning; no retrospective PR needed.
 
 **KI-09 relevance:** this is the kind of event Package 4 activation prevents.
 Tracked.
+
+## 2026-10-08 — APP operational infrastructure
+
+Cloud environment:
+- Platform: Claude Code cloud environment (Anthropic-hosted)
+- Name: APP
+- Network policy: Trusted
+- Repository scope: agenticprocessprotocol/spec
+- Authorized by: Vaidhya, Release Approver
+
+GitHub Apps installed:
+- Claude GitHub App on APPcustodian (user, Personal, All repositories)
+- Claude GitHub App on agenticprocessprotocol (org, All repositories)
+- Authorized by: Vaidhya, Release Approver
+
+Fallback:
+- Manual GitHub web UI per Runbook §5 if cloud environment unavailable
+- Local git clone + manual push if required
 
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
