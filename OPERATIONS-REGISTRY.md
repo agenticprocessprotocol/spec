@@ -143,6 +143,23 @@ Fallback:
 - Manual GitHub web UI per Runbook §5 if cloud environment unavailable
 - Local git clone + manual push if required
 
+## 2026-10-08 — Governance corrections (same-day)
+
+Two corrections to the 2026-10-08 entry above:
+
+1. Claude GitHub App scope on agenticprocessprotocol narrowed
+   from "All repositories" to "Only `spec`" on 2026-10-08. Matches
+   Runbook §8 / `SECURITY-AUTOMATION.md` §2 admission checklist
+   discipline. APPcustodian user-level scope retained at "All
+   repositories" (user account has single-purpose scope;
+   functionally equivalent to spec-only).
+
+2. Procedural note on the 2026-10-08 section above: direct
+   commit by Release Approver; CODEOWNERS review not exercised;
+   Package 4 ruleset not yet active. KI-09 tracks activation.
+
+Approved by Vaidhya, Release Approver.
+
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
 ---
