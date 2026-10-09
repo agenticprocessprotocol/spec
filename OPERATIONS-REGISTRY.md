@@ -183,6 +183,39 @@ activation would prevent.
 
 Approved by Vaidhya, Release Approver.
 
+## 2026-10-09 — WP3 (APP-2026-10-RC1 Baseline) — Formal closure
+
+**Tag date:** 2026-10-07
+**Entry recorded:** 2026-10-09
+**Approver:** Vaidhya (APPcustodian)
+**Tag:** APP-2026-10-RC1 at commit 59b296a
+**Release:** published Latest on github.com/agenticprocessprotocol/spec/releases
+
+**WP3 artefacts produced at tag time:**
+
+- `/releases/APP-2026-10-RC1/spec/` — eleven coordinated specification documents at tag versions
+- `/releases/APP-2026-10-RC1/guides/` — plain-language guides at tag versions
+- `/releases/APP-2026-10-RC1/legal/` — Contribution Terms v0.2, WG Data Handling Charter v0.3, Consultation Privacy Notice v0.3 (RC1 baseline versions)
+- `/releases/APP-2026-10-RC1/MANIFEST.md` and `/releases/APP-2026-10-RC1/manifest.json`
+- `/releases/APP-2026-10-RC1/RELEASE-NOTES.md`
+- `/releases/APP-2026-10-RC1/KNOWN_ISSUES.md`
+- Lightweight Git tag `APP-2026-10-RC1`
+- GitHub Release published Latest
+- APP-DEC-0002 (RC1 publication decision record)
+
+**Validators passing on release PR (#7):** `validate-spec`, `links`, `release-integrity`. `validate-schemas` did not run (path filter `schemas/**` not matched by the PR). No DCO App check ran (DCO App not yet installed; Package 4); release-integrity performed sign-off verification.
+
+**Documentation gaps at tag time, closed during this entry's drafting (2026-10-09):**
+
+- `CHANGELOG.md` was not updated at tag time. Public CHANGELOG read "RC1 is in preparation and not citable", contradicting the published Release and tag. Closed by commit `9bd8e5b` adding the APP-2026-10-RC1 CHANGELOG entry with baseline-version legal instruments, plus an Unreleased section noting Contribution Terms v0.3 and Consultation Privacy Notice v0.4 activated 2026-10-07.
+- `APP-DEC-0001` (WP2 scaffold adoption decision record) remained at Status: Proposed with a placeholder date despite the scaffold having been adopted at WP2 merge. This was a WP2 decision-record defect surfaced during WP3 retrospective, not a WP3 artefact. Closed by commit `c6df45d` setting Status: Accepted with the actual WP2 scaffold adoption date.
+
+Both closure commits direct to main under Runbook §4 interim operating mode. release-integrity (including sign-off verification) is PR-triggered and did not run on these direct commits; DCO sign-off trailers are present and self-attested. Package 4 Tranche 2 will install the DCO App and activate the main branch ruleset, routing all future main-branch changes through PR validation (release-integrity + DCO App checks).
+
+Gaps are documented here rather than being silently resolved, per the governance paper trail integrity principle (prior-session lesson 7).
+
+**Known Issues at RC1 publication:** mapped to GitHub Issues #8–#17 under APP-DEC-0003 (Kit C).
+
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
 ---
