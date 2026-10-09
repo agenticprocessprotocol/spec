@@ -216,6 +216,40 @@ Gaps are documented here rather than being silently resolved, per the governance
 
 **Known Issues at RC1 publication:** mapped to GitHub Issues #8–#17 under APP-DEC-0003 (Kit C).
 
+## 2026-10-09 — WP4 Tranche 1 — Feedback and safeguards (partial)
+
+**Date:** 2026-10-08
+**Approver:** Vaidhya (APPcustodian)
+
+Partial completion of WP4. Safeguards layer activated; DCO App installation and `main` branch ruleset deferred to Tranche 2 (pending APP-DEC-0004).
+
+**Platform configuration completed:**
+
+- **GitHub Discussions — six categories live** per Custodian Instructions §5 Package 4:
+  - Announcements (moderator-only post, all-comment)
+  - Getting Started & Questions
+  - Document Feedback
+  - Substantive Proposals
+  - Implementation Experience
+  - Working Group Administration
+
+  Default Polls and Ideas categories deleted. General and Show-and-Tell retained; may be scoped or removed later based on observed use.
+
+- **Tag ruleset — "APP release tag protection"** active at repository level, targeting `APP-*`. Restrict creations / updates / deletions. Bypass actors: `release-approvers` team only. Protects `APP-2026-10-RC1` and all future `APP-*` tags against unauthorised creation, modification, or deletion.
+
+  Scope note: ruleset installed at repository level, not organisation level, because org-level rulesets are non-enforcing at the current GitHub plan tier. This is an infrastructure constraint, not a design preference.
+
+- **First-time-contributor workflow approval:** verified active (GitHub default for public repositories).
+
+- **Private vulnerability reporting + secret scanning + push protection:** confirmed active (enabled at an earlier stage; included here for Tranche 1 completeness).
+
+**Deferred to WP4 Tranche 2 (planned via APP-DEC-0004):**
+
+- DCO GitHub App admission checklist and installation (Instructions §8).
+- `main` branch ruleset activation per §9 target state. Resolves KI-09 (Issue #16).
+
+**Operational note — platform/content split:** three of four Tranche 1 items were executed via manual GitHub web UI rather than Claude Code. Two causes: (a) the Claude Code cloud session proxy refuses repository-settings and ruleset writes (HTTP 403), although the GitHub REST API itself supports enabling Discussions and creating rulesets; (b) Discussion categories have no REST API, and GraphQL is not reachable from Claude Code cloud sessions. Content work (files, Issues, commits) continues via Claude Code; platform configuration via manual UI. This split is a persistent operating boundary, documented here so future AAIF transfer sees the pattern.
+
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
 ---
