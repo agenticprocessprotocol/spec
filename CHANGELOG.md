@@ -12,9 +12,25 @@ This file records the public release history of the Agentic Process Protocol spe
 
 ## Unreleased
 
-The first coordinated baseline **APP-2026-10-RC1** is in preparation. Until it is tagged, this section remains the only source of record and documents are **not citable as the Specification**.
+Legal instruments activated 2026-10-07, after the RC1 tag: Contribution Terms v0.3 and Consultation Privacy Notice v0.4 (effective 2026-10-07), in `/legal/`. Not part of the APP-2026-10-RC1 baseline; they will be frozen into the next baseline.
 
-Pre-baseline notes will be captured here and migrated into the baseline entry at tag time.
+---
+
+## APP-2026-10-RC1 — 2026-10-07
+
+**Status:** Published release candidate. Tagged at commit `59b296a` and released as the Latest release of `agenticprocessprotocol/spec`.
+
+**Release notes:** [RELEASE-NOTES.md](releases/APP-2026-10-RC1/RELEASE-NOTES.md) · [GitHub Release](https://github.com/agenticprocessprotocol/spec/releases/tag/APP-2026-10-RC1)
+
+**Citation format for documents in this baseline:**
+
+> `APP-<n> <Document title> v<version>, coordinated baseline APP-2026-10-RC1, §<section>, tag APP-2026-10-RC1, manifest SHA-256 <file-hash>`
+
+Per-document SHA-256 hashes in [MANIFEST.md](releases/APP-2026-10-RC1/MANIFEST.md).
+
+**Contents:** Eleven coordinated specification documents (APP-0 through APP-5; APP-IG-01 through APP-IG-05), plain-language guides, and legal instruments (Contribution Terms v0.2, WG Data Handling Charter v0.3, Consultation Privacy Notice v0.3).
+
+**Known issues at publication:** ten items tracked at [KNOWN_ISSUES.md](releases/APP-2026-10-RC1/KNOWN_ISSUES.md) and GitHub Issues #8–#17.
 
 ---
 
