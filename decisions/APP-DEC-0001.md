@@ -1,9 +1,9 @@
 # APP-DEC-0001 — Adoption of Work Package 2 public governance scaffold
 
-**Decision date:** <YYYY-MM-DD — set at PR merge>
+**Decision date:** 2026-10-06
 **Decision maker:** Vaidhya (Release Approver, interim custodian — Vach AI Limited)
 **Supersedes:** none
-**Status:** Proposed — becomes Accepted when the Work Package 2 PR is merged.
+**Status:** Accepted (Work Package 2 PR #1 merged 2026-10-06, commit 376b977)
 
 ---
 
