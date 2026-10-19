@@ -1,6 +1,6 @@
 # APP Governance
 
-This file describes **how decisions are made** in the Agentic Process Protocol repository during the **interim custody** period. It is a public, community-facing document — not a legal instrument. The binding legal instruments are the [Contribution Terms](https://agenticprocess.org/contribute) (adopting CSL 1.0 verbatim) and the [Working Group Data Handling Charter](https://agenticprocess.org/charter).
+This file describes **how decisions are made** in the Agentic Process Protocol repository during the **interim custody** period. It is a public, community-facing document — not a legal instrument. The binding legal instruments are the [Contribution Terms](legal/APP_Contribution_Terms_v0_3.md) (adopting CSL 1.0 verbatim) and the [Working Group Data Handling Charter](releases/APP-2026-10-RC1/legal/APP_WG_Data_Handling_Charter_v0_3.md).
 
 For the CSL 1.0 §9.2 *Draft Specification → Approved Specification* process, see [`csl/Governance.md`](csl/Governance.md). That file is kept separately because CSL 1.0 refers to it by name.
 
