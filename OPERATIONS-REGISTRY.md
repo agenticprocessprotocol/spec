@@ -46,7 +46,7 @@ This file records every operational element of the Agentic Process Protocol repo
 | *(none yet)* | | | | | | DCO App to be installed at Package 4 per admission checklist in `SECURITY-AUTOMATION.md` §2 |
 | Claude GitHub App | Anthropic | User account `APPcustodian` (Personal) — All repositories | *(to be captured)* | Vaidhya (Release Approver) | 2026-10-XX | Recorded 2026-10-08 (see §9). Admission checklist values not yet captured |
 | Claude GitHub App | Anthropic | Organisation `agenticprocessprotocol` — All repositories | *(to be captured)* | Vaidhya (Release Approver) | 2026-10-XX | Recorded 2026-10-08 (see §9). Admission checklist values not yet captured |
-| Cloudflare Workers and Pages | Cloudflare | Organisation `agenticprocessprotocol` — scope *(to be captured; at least `website`)* | *(to be captured)* | Vaidhya (Release Approver) | ~2026-10-12 *(to be confirmed)* | First recorded 2026-10-19 (see §9). Installed for the Cloudflare Pages Git integration (project `agenticprocess`). Admission checklist values not yet captured |
+| Cloudflare Workers and Pages | Cloudflare | Organisation `agenticprocessprotocol` — Only select repositories: `spec`, `website`, `.github` (as found 2026-10-19) | Read: metadata. Read and write: administration, checks, code, deployments, pull requests | Vaidhya (Release Approver) | ~2026-10-12 *(to be confirmed)* | First recorded 2026-10-19 (see §9). Installed for the Cloudflare Pages Git integration (project `agenticprocess`). **Scope exceeds need:** only `website` is required; narrowing to `website` recommended (§9 open items) |
 
 ### DCO App installation — admission checklist values (populated at Package 4)
 
@@ -275,7 +275,7 @@ Triggered by the scheduled `links` run #36 failing on `agenticprocess.org/privac
 
 **Open items:**
 
-- Cloudflare App admission checklist values (scope, permissions, install date) to be captured per `SECURITY-AUTOMATION.md` §2.
+- **Cloudflare App scope exceeds need:** read/write administration and code on `spec` and `.github` as well as `website`. Narrow to `website` only (Release Approver, GitHub UI); record as a transition here when done. Install date still to be confirmed.
 - `actions/checkout` pin targets deprecated Node.js 20 (GitHub forces Node 24); update pins in both repos.
 - Website content: legal-folder link points to RC1 release copies (superseded Privacy Notice v0.3, Contribution Terms v0.2); multi-page labels `/governance#privacy`, `/contribute` in copy. Route via P7.
 
