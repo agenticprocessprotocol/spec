@@ -86,7 +86,7 @@ If any of this appears in a public comment or Issue, the Custodian will apply th
 
 ## 5. Related documents
 
-- Privacy inquiries → `privacy@agenticprocess.org`, [Consultation Privacy Notice](https://agenticprocess.org/privacy).
+- Privacy inquiries → `privacy@agenticprocess.org`, [Consultation Privacy Notice](legal/APP_Consultation_Privacy_Notice_v0_4.md).
 - Code of Conduct → [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md), reports to `conduct@agenticprocess.org`.
 - Operational security of the repository (Actions, Apps, workflows) → [`SECURITY-AUTOMATION.md`](SECURITY-AUTOMATION.md).
 

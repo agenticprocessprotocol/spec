@@ -16,7 +16,7 @@ If anything here is unclear, open a **Discussion** rather than guessing.
 | A **substantive change proposal** (new requirement, changed obligation, new conformance criterion) | **GitHub Issue** → *Normative proposal* form (not a PR) |
 | An **implementation report** (what worked, what didn't, where the spec was unclear) | **GitHub Issue** → *Implementation experience* form |
 | A **suspected security defect** | **Private vulnerability report** via the Security tab, **not** a public Issue — see [`SECURITY.md`](SECURITY.md) |
-| A **personal-data concern** or a request about data we hold | `privacy@agenticprocess.org` — see the [Consultation Privacy Notice](https://agenticprocess.org/privacy) |
+| A **personal-data concern** or a request about data we hold | `privacy@agenticprocess.org` — see the [Consultation Privacy Notice](legal/APP_Consultation_Privacy_Notice_v0_4.md) |
 | A **Code of Conduct report** | `conduct@agenticprocess.org` — see [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) |
 
 **Normative changes do not begin as pull requests.** They begin as a *Normative proposal* issue. The editors convert accepted proposals into pull requests after discussion. This exists so the discussion of *what* to change is separate from the discussion of *how* to word the change.
@@ -151,7 +151,7 @@ The Custodian will not prepare the merge until (i) the manifest is present and c
 
 - Decision authority currently rests with the **Release Approver**. See [`GOVERNANCE.md`](GOVERNANCE.md).
 - The Working Group formation trigger — the conditions under which decision authority transfers from the Release Approver to a quorum of maintainers — is listed in `GOVERNANCE.md` §5.
-- The interim custodian is **Vach AI Limited**. The intended beneficiary is a to-be-designated Successor Foundation. See the [Working Group Data Handling Charter](https://agenticprocess.org/charter).
+- The interim custodian is **Vach AI Limited**. The intended beneficiary is a to-be-designated Successor Foundation. See the [Working Group Data Handling Charter](releases/APP-2026-10-RC1/legal/APP_WG_Data_Handling_Charter_v0_3.md).
 
 ---
 

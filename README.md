@@ -2,7 +2,7 @@
 
 A governance protocol for enterprise business processes when AI is part of the execution path. APP defines the specifications, artefacts, and conformance criteria under which a governed process can be audited across vendor boundaries, regardless of which vendor or AI platform contributes each step.
 
-This repository is the public home of the APP specification suite. It is maintained under the interim custody of **Vach AI Limited** (DIFC), pending matriculation to a Successor Foundation. See [`GOVERNANCE.md`](GOVERNANCE.md) and the [Working Group Data Handling Charter](https://agenticprocess.org/charter) for the custody and governance posture.
+This repository is the public home of the APP specification suite. It is maintained under the interim custody of **Vach AI Limited** (DIFC), pending matriculation to a Successor Foundation. See [`GOVERNANCE.md`](GOVERNANCE.md) and the [Working Group Data Handling Charter](releases/APP-2026-10-RC1/legal/APP_WG_Data_Handling_Charter_v0_3.md) for the custody and governance posture.
 
 ---
 
@@ -62,7 +62,7 @@ See [`LICENSE`](LICENSE) for the full CSL 1.0 text and the mapping of accompanyi
 
 The Interim Custodian is **Vach AI Limited** (DIFC, Dubai). Interim custody is **not ownership**. The intended beneficiary of the Working Group's records and infrastructure is a not-for-profit standards foundation to be designated by resolution of the Working Group (the **Successor Foundation**).
 
-Personal data received through consultation is governed by the [Consultation Privacy Notice](https://agenticprocess.org/privacy) and the [Working Group Data Handling Charter](https://agenticprocess.org/charter). Those documents govern personal data; the files in this repository govern intellectual-property rights in contributions.
+Personal data received through consultation is governed by the [Consultation Privacy Notice](legal/APP_Consultation_Privacy_Notice_v0_4.md) and the [Working Group Data Handling Charter](releases/APP-2026-10-RC1/legal/APP_WG_Data_Handling_Charter_v0_3.md). Those documents govern personal data; the files in this repository govern intellectual-property rights in contributions.
 
 On matriculation, custody of the repository, tags, releases, and governance records will transfer to the Successor Foundation. The governance posture is maintained to make that transfer a file transfer, not an archaeology exercise.
 
@@ -80,7 +80,7 @@ On matriculation, custody of the repository, tags, releases, and governance reco
 ## Security and privacy
 
 - **Vulnerability reports** go through GitHub's private vulnerability reporting first; `security@agenticprocess.org` is the backup channel. **Do not open a public issue for a suspected security defect.** See [`SECURITY.md`](SECURITY.md).
-- **Privacy inquiries** go to `privacy@agenticprocess.org`. The Consultation Privacy Notice is at `https://agenticprocess.org/privacy`.
+- **Privacy inquiries** go to `privacy@agenticprocess.org`. The Consultation Privacy Notice is at [`legal/APP_Consultation_Privacy_Notice_v0_4.md`](legal/APP_Consultation_Privacy_Notice_v0_4.md).
 - **Code of Conduct violations** go to `conduct@agenticprocess.org`. See [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
 
 ---
