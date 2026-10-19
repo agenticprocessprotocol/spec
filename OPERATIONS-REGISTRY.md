@@ -27,6 +27,8 @@ This file records every operational element of the Agentic Process Protocol repo
 | Private vulnerability reporting | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
 | Secret scanning + push protection | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
 | First-time contributor workflow approval | Required | Vaidhya | 2026-10-06 | Activated at Package 4 |
+| Repository | `agenticprocessprotocol/website` | Vaidhya | ~2026-10-08 (first commit 2026-10-12) | Private. Builds and deploys `agenticprocess.org`. Governed separately from `spec` (website `CLAUDE.md`, `docs/`). See §9 2026-10-19 |
+| Ruleset `main-protection` — `website` `main` | Created; **not enforced** (private repo on GitHub Free) | Vaidhya | 2026-10-19 | PR required (0 approvals), required check `website-checks`, block force push, restrict deletion, no bypass. Activates on upgrade to GitHub Team. Enforced control is the CI-gated deploy (§9) |
 
 ## 3. Teams and access
 
@@ -44,6 +46,7 @@ This file records every operational element of the Agentic Process Protocol repo
 | *(none yet)* | | | | | | DCO App to be installed at Package 4 per admission checklist in `SECURITY-AUTOMATION.md` §2 |
 | Claude GitHub App | Anthropic | User account `APPcustodian` (Personal) — All repositories | *(to be captured)* | Vaidhya (Release Approver) | 2026-10-XX | Recorded 2026-10-08 (see §9). Admission checklist values not yet captured |
 | Claude GitHub App | Anthropic | Organisation `agenticprocessprotocol` — All repositories | *(to be captured)* | Vaidhya (Release Approver) | 2026-10-XX | Recorded 2026-10-08 (see §9). Admission checklist values not yet captured |
+| Cloudflare Workers and Pages | Cloudflare | Organisation `agenticprocessprotocol` — Only select repositories: `spec`, `website`, `.github` (as found 2026-10-19) | Read: metadata. Read and write: administration, checks, code, deployments, pull requests | Vaidhya (Release Approver) | ~2026-10-08 (Release Approver recollection) | First recorded 2026-10-19 (see §9). Installed for the Cloudflare Pages Git integration (project `agenticprocess`). Scope narrowed to `website` only on 2026-10-19 (§9) |
 
 ### DCO App installation — admission checklist values (populated at Package 4)
 
@@ -101,6 +104,7 @@ Mail is on the Vach AI Limited M365 tenant with `agenticprocess.org` as an addit
 | Secret | Scope | Purpose | Approver | Rotation policy |
 |---|---|---|---|---|
 | *(none)* | | | | |
+| `CF_DEPLOY_HOOK` | Repository secret, `agenticprocessprotocol/website` | Cloudflare Pages deploy hook URL (`ci-gated`, branch `main`); called by `website-checks` `deploy` job after checks pass | Vaidhya | On suspected exposure: delete hook in Cloudflare, create new, update secret. Exposure impact: rebuild of current `main` only (no content change) |
 
 Repository secrets are introduced only where strictly required, by Release Approver approval, with a named rotation policy.
 
@@ -249,6 +253,32 @@ Partial completion of WP4. Safeguards layer activated; DCO App installation and 
 - `main` branch ruleset activation per §9 target state. Resolves KI-09 (Issue #16).
 
 **Operational note — platform/content split:** three of four Tranche 1 items were executed via manual GitHub web UI rather than Claude Code. Two causes: (a) the Claude Code cloud session proxy refuses repository-settings and ruleset writes (HTTP 403), although the GitHub REST API itself supports enabling Discussions and creating rulesets; (b) Discussion categories have no REST API, and GraphQL is not reachable from Claude Code cloud sessions. Content work (files, Issues, commits) continues via Claude Code; platform configuration via manual UI. This split is a persistent operating boundary, documented here so future AAIF transfer sees the pattern.
+
+## 2026-10-19 — Website repository: publication boundary, CI controls, Website Maintainer role
+
+**Date:** 2026-10-19
+**Approver:** Vaidhya (APPcustodian), Release Approver
+
+Triggered by the scheduled `links` run #36 failing on `agenticprocess.org/privacy`, `/charter` and `/contribute` (spec fix: PR #18).
+
+**Transitions:**
+
+- **Claude GitHub App scope on `agenticprocessprotocol`:** "Only `spec`" (2026-10-08 narrowing) → "Only `spec` and `website`". Approver: Vaidhya. Reason: Website Maintainer execution (below). `.github` remains readable as a public repo but is not in scope.
+- **Exposure closed:** Cloudflare Pages served the `website` repo root, so markdown source, prototypes, build scripts and README were publicly reachable (README confirmed in browser). Build output directory changed `/` → `public`; served files moved to `public/` (`website` PR #2, merge `89c05d2`). Verified on production: `/README.md` → 404.
+- **Cloudflare automatic production deployments:** Enabled → **Disabled**. Production now deploys only via deploy hook `ci-gated`, called by the `website-checks` `deploy` job after all checks pass (`website` PR #3, merge `ed25968`). Verified: Git-triggered production build for `ed25968` skipped; hook-triggered build live. Preview deployments unchanged; previews restricted by Cloudflare Access.
+- **`website` CI added:** `website-checks` (index/template parity, publication boundary, `predeploy_check.py`) on every PR and push to `main`. Uses the same SHA-pinned `actions/checkout` and `actions/setup-python` as `spec` (§5).
+- **Cloudflare Workers and Pages App scope on `agenticprocessprotocol`:** Only select `spec`, `website`, `.github` → **Only `website`**. Approver: Vaidhya. Reason: least privilege per `SECURITY-AUTOMATION.md` §2; the App held read/write administration and code on `spec` and `.github` with no need. Pages builds only from `website`, so no service impact.
+- **`website` legacy redirects:** `public/_redirects` maps `/contribute`, `/governance`, `/privacy` to anchors on `/`; `/charter` to the WG Data Handling Charter in `spec`.
+
+**Role boundary:** the P8 Custodian boundary is unchanged (Custodian does not hold website authoring context). A distinct **Website Maintainer** role is defined in `website/CLAUDE.md` and Update Procedure v1.6 §7.3: a Claude Code session in the `website` repo may assemble version sets, run checks, commit to branches and open PRs; it does not author copy (P7) and does not merge. This entry was prepared by the 2026-10-19 Claude Code session acting as `spec` Custodian; the website work in the same session was executed under the Website Maintainer role at the Release Approver's instruction (Option B).
+
+**Governing documents (now in `website/docs/`, not served):** `APP_Website_Update_Procedure_v1_6.md`, `APP_Website_Setup_Guide_v2_2.md`. v1.5 and v2.1 superseded.
+
+**Open items:**
+
+- Cloudflare App install date recorded from recollection (~2026-10-08); confirm from org audit log (`integration_installation`) if exactness matters.
+- `actions/checkout` pin targets deprecated Node.js 20 (GitHub forces Node 24); update pins in both repos.
+- Website content: legal-folder link points to RC1 release copies (superseded Privacy Notice v0.3, Contribution Terms v0.2); multi-page labels `/governance#privacy`, `/contribute` in copy. Route via P7.
 
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
