@@ -1,4 +1,4 @@
 # Python dependencies for APP validators.
 # Kept minimal; version pinning allows Dependabot to update.
 PyYAML>=6.0,<7.0
-jsonschema>=4.21.0,<5.0
+jsonschema>=4.26.0,<5.0
