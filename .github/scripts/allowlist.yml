@@ -94,6 +94,12 @@ release_integrity:
     - "schemas/**"
     - "reference/**"
     - "drafts/spec/**"  # catches most normative edits; the keyword validator does more precise detection
+    # Governance and CI changes (GOVERNANCE.md §2.2). Includes Dependabot PRs.
+    - "GOVERNANCE.md"
+    - "CONTRIBUTING.md"
+    - "SECURITY.md"
+    - "OPERATIONS-REGISTRY.md"
+    - ".github/**"
 
 # ------------------------------------------------------------------
 # reference_hygiene: scope for validate_reference_hygiene.py. Every

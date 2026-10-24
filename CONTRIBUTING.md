@@ -113,7 +113,7 @@ The disclosure field is in every Issue Form and PR template.
 - **DCO:** confirmation that all commits are signed off.
 - **AI-authorship disclosure:** as described in §4.
 - **Personal-data acknowledgement:** that your contribution does not include personal data of third parties, sensitive personal data, off-platform-collected personal data, or anything else listed under *Never-in-repo* in [`SECURITY.md`](SECURITY.md).
-- **Release Approver sign-off** (for release / scope / legal / normative PRs only): completed by the Release Approver before merge.
+- **Release Approver sign-off** (only for the classes in [`GOVERNANCE.md`](GOVERNANCE.md) §2.2: release, scope, legal, schema and reference design, normative, governance and CI): completed by the Release Approver before merge.
 
 ### 5.2 Required checks
 
@@ -122,7 +122,7 @@ Every PR must pass:
 - **`validate-spec`** — manifest, legacy-name, reference-hygiene, keyword, cross-reference, and DCO sign-off validators. The DCO sign-off validator fails if any commit lacks a `Signed-off-by:` trailer (see §3).
 - **`validate-schemas`** (for schema-touching PRs) — schema validation against the published meta-schema plus `examples/` and `examples/invalid/`.
 - **`links`** — all internal and external links resolve.
-- **`release-integrity`** (for release PRs) — manifest and release-notes integrity, including the Release Approver sign-off template field.
+- **`release-integrity`** — for release PRs, manifest and release-notes integrity; for the classes in [`GOVERNANCE.md`](GOVERNANCE.md) §2.2, the Release Approver sign-off fields.
 
 Failing checks block merge. The Custodian helps you diagnose, but does not merge.
 

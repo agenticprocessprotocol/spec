@@ -130,7 +130,7 @@ CLASS_FIELD = re.compile(r"(?mi)^\s*-\s*\*\*Classification sign-off applies to:\
 
 PLACEHOLDER_MARKERS = {"<!--", "<!-", "--", "name", "yyyy-mm-dd", ""}
 
-VALID_CLASS_TOKENS = {"release", "scope", "legal", "schema", "reference", "normative"}
+VALID_CLASS_TOKENS = {"release", "scope", "legal", "schema", "reference", "normative", "governance"}
 
 
 def _is_populated(raw: str) -> tuple[bool, str]:

@@ -7,9 +7,9 @@ name: release-integrity
 #      updated, changelog entry present.
 #   2. For PRs touching paths that require Release Approver sign-off
 #      per GOVERNANCE.md §2.2 (release / scope / legal / schema /
-#      reference / normative), verifies the Release Approver sign-off
-#      section of the PR body is populated (not left as default
-#      placeholders).
+#      reference / normative / governance and CI), verifies the Release
+#      Approver sign-off section of the PR body is populated (not left
+#      as default placeholders). Runs again when the PR body is edited.
 #
 # This is how differential sign-off is enforced on top of the uniform
 # "1 approval + CODEOWNER + status checks" ruleset.
