@@ -94,3 +94,55 @@ release_integrity:
     - "schemas/**"
     - "reference/**"
     - "drafts/spec/**"  # catches most normative edits; the keyword validator does more precise detection
+
+# ------------------------------------------------------------------
+# reference_hygiene: scope for validate_reference_hygiene.py. Every
+# citation in published content must resolve to a public source.
+# The validator's patterns are generic shapes; never add literal names
+# of non-public documents anywhere in this repository.
+#
+# Precedence: skip_globs > frozen_records > error_globs > warn_globs.
+# A path matched by none of them is not scanned.
+# ------------------------------------------------------------------
+reference_hygiene:
+  error_globs:
+    - "drafts/**"
+    - "schemas/**"
+    - "reference/**"
+    - "changes/**"
+    - "sessions/**"
+    - "decisions/**"
+  warn_globs: []
+  frozen_records:
+    # Matches in existing content warn (it cannot be changed); matches on
+    # lines a PR adds error, so a new release directory is screened
+    # before it is tagged.
+    - "releases/**"
+    # Accepted decision records.
+    - "decisions/APP-DEC-0001.md"
+    - "decisions/APP-DEC-0002.md"
+    - "decisions/APP-DEC-0003.md"
+  skip_globs:
+    # These name the interim custodian legitimately.
+    - "legal/**"
+    - "csl/**"
+    - "GOVERNANCE.md"
+    - "README.md"
+    - "CONTRIBUTING.md"
+    - "OPERATIONS-REGISTRY.md"
+  # Interim custodian organisation name(s). Already public in /legal/;
+  # matched case-insensitively, only inside vendor_scope_globs.
+  # Replace at matriculation.
+  vendor_names:
+    - "Vach"
+  vendor_scope_globs:
+    - "drafts/**"
+    - "schemas/**"
+    - "reference/**"
+  # Per-class token allowlist (regex applied to the matched text).
+  id_allowlist:
+    register-id:
+      - '^SEC-S\d+$'   # APP's own security-domain family
+  # Path-scoped exceptions. Each needs a class and a reason; adding one
+  # is a Release Approver decision. Empty by default.
+  exceptions: []
