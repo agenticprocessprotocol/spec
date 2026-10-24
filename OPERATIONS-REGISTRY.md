@@ -29,9 +29,11 @@ This file records every operational element of the Agentic Process Protocol repo
 | First-time contributor workflow approval | Required | Vaidhya | 2026-10-06 | Activated at Package 4 |
 | Dependency graph — `spec` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
 | Dependabot alerts — `spec` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
-| Dependabot security updates — `spec` | Enabled (observed via API 2026-10-24) | *(to be confirmed)* | *(to be confirmed)* | Runbook v1.2 §A.4.3 left this off at WP4 Tranche 1; enable date and approver not recorded (§9) |
+| Dependabot security updates — `spec` | Enabled | Vaidhya | 2026-10-24 | Release Approver change; kept on by Release Approver decision. Runbook v1.2 §A.4.3 had left this off at WP4 Tranche 1 (§9) |
 | Repository | `agenticprocessprotocol/website` | Vaidhya | ~2026-10-08 (first commit 2026-10-12) | Private. Builds and deploys `agenticprocess.org`. Governed separately from `spec` (website `CLAUDE.md`, `docs/`). See §9 2026-10-19 |
 | Ruleset `main-protection` — `website` `main` | Created; **not enforced** (private repo on GitHub Free) | Vaidhya | 2026-10-19 | PR required (0 approvals), required check `website-checks`, block force push, restrict deletion, no bypass. Activates on upgrade to GitHub Team. Enforced control is the CI-gated deploy (§9) |
+| Dependency graph — `website` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
+| Dependabot alerts — `website` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
 
 ## 3. Teams and access
 
@@ -54,6 +56,8 @@ Members as named in `/governance/interim/CURRENT-CUSTODY.md` (v0.1 Draft). Team 
 | Cloudflare Workers and Pages | Cloudflare | Organisation `agenticprocessprotocol` — Only select repositories: `spec`, `website`, `.github` (as found 2026-10-19) | Read: metadata. Read and write: administration, checks, code, deployments, pull requests | Vaidhya (Release Approver) | ~2026-10-08 (Release Approver recollection) | First recorded 2026-10-19 (see §9). Installed for the Cloudflare Pages Git integration (project `agenticprocess`). Scope narrowed to `website` only on 2026-10-19 (§9) |
 
 ### DCO App installation — admission checklist values (populated at Package 4)
+
+*Superseded 2026-10-24: the DCO App will not be installed. A repository-local DCO sign-off check in `validate-spec` replaces it (APP-DEC-0004 §3, PR #27). The checklist below is kept as the historical plan.*
 
 | Field | Verified value |
 |---|---|
@@ -295,18 +299,20 @@ Triggered by the scheduled `links` run #36 failing on `agenticprocess.org/privac
 
 - **Ruleset `main-protection`** (ID 25775829) created on `spec`, target default branch, enforcement **Active**. Created 08:41 UTC; last edited 08:50 UTC. Required checks: the four `validate-spec` jobs and `release-integrity`. Squash only. Code-owner review off at activation. Full settings in APP-DEC-0004 §2.
 - **Team access on `spec`:** `custodians`, `editors` and `release-approvers` given **Write**. GitHub accepts a team as a code owner only with explicit Write access. GitHub's CODEOWNERS check now reports one remaining error: the `APP-[0-5]*` pattern, fixed in PR #24.
-- **Security settings on `spec`:** dependency graph and Dependabot alerts enabled.
+- **Security settings:** dependency graph and Dependabot alerts enabled on `spec` and on `website`. Dependabot security updates enabled on `spec`, kept on by Release Approver decision.
+- **DCO:** the DCO App will not be installed. A repository-local `DCO sign-off validator` job in `validate-spec` replaces it (PR #27, draft) and becomes a required check once merged.
+- **Code-owner review:** stays off until each code-owning team has a member who does not author the pull requests it reviews (APP-DEC-0004 §4).
 
 **State read from the API on 2026-10-24:**
 
 - Secret scanning: enabled. Push protection: enabled. Private vulnerability reporting: enabled.
-- Dependabot security updates: **enabled**. Runbook v1.2 §A.4.3 records this as left off at WP4 Tranche 1. Enable date and approver to be confirmed.
+- Dependabot security updates: enabled (Release Approver, 2026-10-24; see above). Runbook v1.2 §A.4.3 had left this off at WP4 Tranche 1.
 
 **Verification (Tranche 2 acceptance):**
 
 - Test A, PR #22: an RFC 2119 keyword under `/drafts/spec/` with no change-impact manifest. `Normative-keyword validator` and `Release integrity + sign-off verification` failed; merge blocked.
 - Test B, PR #23: an informative file, no keyword. All five required checks passed; merge blocked only by the review requirement.
-- DCO App check: not testable. No DCO check exists in CI until the DCO App or a repository-local DCO job is installed. Until then the Custodian checks `Signed-off-by` trailers on every pull request.
+- DCO: no DCO check existed in CI. The repository-local check (PR #27) was tested on synthetic commits and on every open pull request's commit range. Until it is a required check, the Custodian checks `Signed-off-by` trailers on every pull request.
 
 **Corrections to this file:**
 
@@ -315,7 +321,11 @@ Triggered by the scheduled `links` run #36 failing on `agenticprocess.org/privac
 
 **KI-09 (Issue #16):** closes when APP-DEC-0004 merges.
 
-**Still open for Phase 2c:** DCO App admission checklist and installation (§4 checklist table).
+**Still open for Phase 2c:**
+
+- The DCO sign-off check (PR #27) merged and added to the required checks.
+- The normative-keyword check fix (PR #26) merged, and Test A re-run after PR #20 to confirm it still blocks.
+- The reference-hygiene check (PR #21) merged and added to the required checks.
 
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
