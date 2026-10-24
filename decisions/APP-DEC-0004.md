@@ -7,15 +7,15 @@
 | Status | Accepted |
 | Decided by | Vaidhya, Release Approver (Interim Custodian) |
 | Instruments affected | Ruleset `main-protection` on `agenticprocessprotocol/spec`; repository access of teams `custodians`, `editors`, `release-approvers`; `GOVERNANCE.md` §2.2 and §4; `OPERATIONS-REGISTRY.md` §2, §3, §9 |
-| Related | APP-DEC-0003 (KI-09 tracking); Issue #16 (KI-09); PR #24 (CODEOWNERS pattern fix); test PRs #22 and #23 |
+| Related | APP-DEC-0003 (KI-09 tracking); Issue #16 (KI-09); PR #24 (CODEOWNERS pattern fix); PR #26 (normative-keyword check fix); PR #27 (DCO sign-off check); test PRs #22 and #23 |
 
 ## Decision
 
-1. **Phase 2b and 2c are brought forward**, ahead of Phase 2.5 and Phase 2a. The `main` ruleset is activated now; the DCO App installation stays pending.
+1. **Phase 2b and 2c are brought forward**, ahead of Phase 2.5 and Phase 2a. The `main` ruleset is activated now. **The DCO App is not installed:** a repository-local DCO sign-off check in `validate-spec` (PR #27) replaces it and becomes a required check once merged.
 2. **Ruleset `main-protection` is active on the default branch** from 2026-10-24, with the settings in §2.
 3. **Required status checks are limited to five:** the four `validate-spec` jobs and `release-integrity` (§3).
 4. **Teams `custodians`, `editors` and `release-approvers` have Write access to `spec`** from 2026-10-24. GitHub accepts a team as a code owner only if the team is visible and has explicit Write access to the repository. This grant cleared the "unknown owner" errors GitHub reported for every line of `.github/CODEOWNERS`.
-5. **Code-owner review is off at activation.** It is to be switched on after the CODEOWNERS pattern fix (PR #24) merges. §4 records a consequence to confirm before that switch is made.
+5. **Code-owner review stays off.** It is switched on once each code-owning team has a member who does not author the pull requests it reviews (§4).
 
 ## 1. Context
 
@@ -53,30 +53,34 @@ The full API export is reproduced in the appendix.
 |:---|:---|:---|
 | `links` (Lychee link check) | Runs only when Markdown or HTML changes. A required check that does not run leaves a PR waiting indefinitely | The workflow reports on every pull request |
 | `validate-schemas` | Runs only when `schemas/**` changes; same reason | The workflow reports on every pull request |
-| DCO | **No DCO check exists today.** The DCO App is not installed, and no repository workflow checks `Signed-off-by` trailers | The DCO App is installed, or a repository-local DCO job is added |
-| Reference-hygiene validator | Proposed in draft PR #21; not on `main` | PR #21 merges and the Release Approver adds it |
+| DCO | **No DCO check exists today.** The DCO App will not be installed; PR #27 adds a repository-local `DCO sign-off validator` job to `validate-spec` | PR #27 merges |
+| Reference-hygiene validator | Proposed in PR #21; not on `main` | PR #21 merges |
 
-Until a DCO check exists, the Custodian checks the `Signed-off-by` trailer on every commit of every pull request as part of review.
+A newly required check reports only on runs started after its workflow is on `main`, so pull requests opened earlier need a fresh push before it reports. Until the DCO sign-off check is required, the Custodian checks the `Signed-off-by` trailer on every commit of every pull request as part of review.
 
 ## 4. Code-owner review
 
-**Planned:** switch on "Require review from Code Owners" after PR #24 merges.
+**Decision:** "Require review from Code Owners" stays off. It is switched on once each code-owning team has a member who does not author the pull requests that team reviews.
 
-**Consequence to confirm before switching it on.** GitHub's rules, both from its documentation:
+**Reason.** GitHub's rules, both from its documentation:
 
 - When code-owner review is required, an approval from any one listed owner satisfies it.
 - A pull-request author cannot approve their own pull request.
 
-At the time of this decision, `custodians` and `release-approvers` each have one member, the Release Approver, whose account also opens the pull requests the Custodian prepares. With code-owner review on, such a pull request cannot obtain a code-owner approval for any path owned only by those two teams. Those paths include:
+At the time of this decision, `custodians` and `release-approvers` each have one member, the Release Approver, whose account also opens the pull requests the Custodian prepares. With code-owner review on, such a pull request could not obtain a code-owner approval for any path owned only by those two teams. Those paths include:
 
 - root files and `sessions/`;
 - `decisions/`, `legal/`, `csl/`, `releases/`, `OPERATIONS-REGISTRY.md`;
 - `.github/` workflows and scripts, and `tools/`;
 - APP-1 and the APP-IG guides under `drafts/spec/`.
 
-Such a pull request could then merge only through the `release-approvers` bypass, and every bypass is logged as a governance event. Paths owned by `editors`, or by `editors` with `release-approvers`, are unaffected, because the co-maintainer can approve them.
+It could then merge only through the `release-approvers` bypass.
 
-The Release Approver decides before the switch is made whether to proceed, keep code-owner review off until each owning team has a member who does not author the pull requests it reviews, or change team membership or pull-request authorship.
+**Meanwhile:**
+
+- CODEOWNERS still requests reviews from the owning teams.
+- Release Approver control over the sign-off classes in `GOVERNANCE.md` §2.2 is enforced by `release-integrity`.
+- Independent review is enforced by the one-approval rule: an approver other than the last pusher.
 
 ## 5. Other departures from the `GOVERNANCE.md` §4 target
 
@@ -92,11 +96,13 @@ The Release Approver decides before the switch is made whether to proceed, keep 
 | A — RFC 2119 keyword added under `/drafts/spec/` with no change-impact manifest and no sign-off | #22 | `Normative-keyword validator` failed; `Release integrity + sign-off verification` failed; merge blocked |
 | B — informative file under `/drafts/guides/`, no keyword | #23 | All five required checks passed; merge blocked only by the review requirement |
 
-Tranche 2 acceptance also lists a DCO App check on pull requests with and without sign-off. That item stays open until the DCO App is installed.
+Tranche 2 acceptance also listed a DCO App check on pull requests with and without sign-off. The DCO App will not be installed. The repository-local check (PR #27) was tested on commits with and without sign-off, and on every open pull request's commit range.
+
+Test A is re-run after PR #20 and PR #26 merge, to confirm it still blocks once a change-impact manifest exists on `main`.
 
 ## 7. Known Issue disposition
 
-KI-09 (Issue #16) is resolved by this record: the `main` ruleset is active, and the differential sign-off check has been exercised on live pull requests (#20, #22, #23). The DCO App installation continues as a Phase 2c item outside KI-09.
+KI-09 (Issue #16) is resolved by this record: the `main` ruleset is active, and the differential sign-off check has been exercised on live pull requests (#20, #22, #23). The remaining Phase 2c items continue outside KI-09: the DCO sign-off check (PR #27), the normative-keyword check fix with the Test A re-run (PR #26), and the reference-hygiene check (PR #21), each merged and added to the required checks.
 
 ## Appendix — API export (2026-10-24)
 

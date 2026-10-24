@@ -127,8 +127,8 @@ The `main` branch is protected by the GitHub ruleset `main-protection`, active s
 | Require approval other than last pusher | Yes |
 | Dismiss stale approvals on push | Yes |
 | Require conversation resolution | Yes |
-| Require code-owner review | Not yet — planned after the CODEOWNERS pattern fix merges (APP-DEC-0004 §4) |
-| Required status checks | The four `validate-spec` jobs (manifest, legacy-name, normative-keyword, cross-reference) and `release-integrity`. `links` and `validate-schemas` run when their paths change but are not yet required; a DCO check is added when one exists (APP-DEC-0004 §3) |
+| Require code-owner review | Not yet — switched on once each code-owning team has a member who does not author the pull requests it reviews (APP-DEC-0004 §4) |
+| Required status checks | The four `validate-spec` jobs (manifest, legacy-name, normative-keyword, cross-reference) and `release-integrity`. `links` and `validate-schemas` run when their paths change but are not yet required. The `validate-spec` DCO sign-off and reference-hygiene jobs are added when they merge (APP-DEC-0004 §3) |
 | Require branches up to date | No (rulesets cannot scope this to release PRs; see APP-DEC-0004 §5) |
 | Require linear history | Yes |
 | Squash merge only | Yes |
