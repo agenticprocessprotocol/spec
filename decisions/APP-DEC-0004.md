@@ -7,7 +7,7 @@
 | Status | Accepted |
 | Decided by | Vaidhya, Release Approver (Interim Custodian) |
 | Instruments affected | Ruleset `main-protection` on `agenticprocessprotocol/spec`; repository access of teams `custodians`, `editors`, `release-approvers`; `GOVERNANCE.md` §2.2 and §4; `OPERATIONS-REGISTRY.md` §2, §3, §9 |
-| Related | APP-DEC-0003 (KI-09 tracking); Issue #16 (KI-09); PR #24 (CODEOWNERS pattern fix); PR #26 (normative-keyword check fix); PR #27 (DCO sign-off check); test PRs #22 and #23 |
+| Related | APP-DEC-0003 (KI-09 tracking); Issue #16 (KI-09); PR #24 (CODEOWNERS pattern fix); PR #26 (normative-keyword check fix, merged); PR #27 (DCO sign-off check); test PRs #22, #23 and #28 |
 
 ## Decision
 
@@ -53,8 +53,8 @@ The full API export is reproduced in the appendix.
 |:---|:---|:---|
 | `links` (Lychee link check) | Runs only when Markdown or HTML changes. A required check that does not run leaves a PR waiting indefinitely | The workflow reports on every pull request |
 | `validate-schemas` | Runs only when `schemas/**` changes; same reason | The workflow reports on every pull request |
-| DCO | **No DCO check exists today.** The DCO App will not be installed; PR #27 adds a repository-local `DCO sign-off validator` job to `validate-spec` | PR #27 merges |
-| Reference-hygiene validator | Proposed in PR #21; not on `main` | PR #21 merges |
+| DCO | **No DCO check exists today.** The DCO App will not be installed; PR #27 adds a repository-local `DCO sign-off validator` job to `validate-spec` | After PRs #25 and #27 merge, in one ruleset edit with the reference-hygiene check |
+| Reference-hygiene validator | Proposed in PR #21; not on `main` | After PRs #25 and #27 merge, in one ruleset edit with the DCO check |
 
 A newly required check reports only on runs started after its workflow is on `main`, so pull requests opened earlier need a fresh push before it reports. Until the DCO sign-off check is required, the Custodian checks the `Signed-off-by` trailer on every commit of every pull request as part of review.
 
@@ -95,14 +95,15 @@ It could then merge only through the `release-approvers` bypass.
 |:---|:---|:---|
 | A — RFC 2119 keyword added under `/drafts/spec/` with no change-impact manifest and no sign-off | #22 | `Normative-keyword validator` failed; `Release integrity + sign-off verification` failed; merge blocked |
 | B — informative file under `/drafts/guides/`, no keyword | #23 | All five required checks passed; merge blocked only by the review requirement |
+| A, re-run after `changes/APP-0001.md` reached `main` (PR #20) and the keyword check was fixed (PR #26) | #28 | `Normative-keyword validator` failed; `Release integrity + sign-off verification` failed; merge blocked |
 
 Tranche 2 acceptance also listed a DCO App check on pull requests with and without sign-off. The DCO App will not be installed. The repository-local check (PR #27) was tested on commits with and without sign-off, and on every open pull request's commit range.
 
-Test A is re-run after PR #20 and PR #26 merge, to confirm it still blocks once a change-impact manifest exists on `main`.
+The re-run (#28) confirms that a change-impact manifest already on `main` no longer satisfies the check for a later pull request.
 
 ## 7. Known Issue disposition
 
-KI-09 (Issue #16) is resolved by this record: the `main` ruleset is active, and the differential sign-off check has been exercised on live pull requests (#20, #22, #23). The remaining Phase 2c items continue outside KI-09: the DCO sign-off check (PR #27), the normative-keyword check fix with the Test A re-run (PR #26), and the reference-hygiene check (PR #21), each merged and added to the required checks.
+KI-09 (Issue #16) is resolved by this record: the `main` ruleset is active, and the differential sign-off check has been exercised on live pull requests (#20, #22, #23). The remaining Phase 2c items continue outside KI-09: the DCO sign-off check (PR #27), the normative-keyword check (PR #26, merged; Test A re-run passed) and its follow-up counting only manifests added by the pull request, and the reference-hygiene check (PR #21), each merged and added to the required checks.
 
 ## Appendix — API export (2026-10-24)
 

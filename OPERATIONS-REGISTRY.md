@@ -302,6 +302,7 @@ Triggered by the scheduled `links` run #36 failing on `agenticprocess.org/privac
 - **Security settings:** dependency graph and Dependabot alerts enabled on `spec` and on `website`. Dependabot security updates enabled on `spec`, kept on by Release Approver decision.
 - **DCO:** the DCO App will not be installed. A repository-local `DCO sign-off validator` job in `validate-spec` replaces it (PR #27, draft) and becomes a required check once merged.
 - **Code-owner review:** stays off until each code-owning team has a member who does not author the pull requests it reviews (APP-DEC-0004 §4).
+- **Commit identity:** from 2026-10-24, Custodian-prepared commits are authored as `APPcustodian (Vaidhya) <333175196+APPcustodian@users.noreply.github.com>`, the same identity as their `Signed-off-by` line. Earlier commits used the role address `custodian@agenticprocess.org` as author.
 
 **State read from the API on 2026-10-24:**
 
@@ -312,6 +313,7 @@ Triggered by the scheduled `links` run #36 failing on `agenticprocess.org/privac
 
 - Test A, PR #22: an RFC 2119 keyword under `/drafts/spec/` with no change-impact manifest. `Normative-keyword validator` and `Release integrity + sign-off verification` failed; merge blocked.
 - Test B, PR #23: an informative file, no keyword. All five required checks passed; merge blocked only by the review requirement.
+- Test A re-run, PR #28, after PRs #20 and #26 merged: `Normative-keyword validator` and `Release integrity + sign-off verification` failed; merge blocked.
 - DCO: no DCO check existed in CI. The repository-local check (PR #27) was tested on synthetic commits and on every open pull request's commit range. Until it is a required check, the Custodian checks `Signed-off-by` trailers on every pull request.
 
 **Corrections to this file:**
@@ -323,9 +325,8 @@ Triggered by the scheduled `links` run #36 failing on `agenticprocess.org/privac
 
 **Still open for Phase 2c:**
 
-- The DCO sign-off check (PR #27) merged and added to the required checks.
-- The normative-keyword check fix (PR #26) merged, and Test A re-run after PR #20 to confirm it still blocks.
-- The reference-hygiene check (PR #21) merged and added to the required checks.
+- The DCO sign-off check (PR #27) and the reference-hygiene check (PR #21) merged, then both added to the required checks in one ruleset edit after PRs #25 and #27 merge.
+- The normative-keyword check follow-up: count only manifests added by the pull request. PR #26 merged and the Test A re-run passed (PR #28).
 
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
