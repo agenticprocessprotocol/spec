@@ -22,22 +22,29 @@ This file records every operational element of the Agentic Process Protocol repo
 |---|---|---|---|---|
 | Repository | `agenticprocessprotocol/spec` | Vaidhya | 2026-09-XX | Public, empty at creation |
 | Default branch | `main` | Vaidhya | 2026-10-XX | Set during Package 2 PR merge |
-| Branch protection — `main` | Enabled, interim ruleset | Vaidhya | 2026-10-06 | Activated at Package 4 |
+| Branch protection — `main` | Ruleset `main-protection` (ID 25775829), Active | Vaidhya | 2026-10-24 | Settings per APP-DEC-0004. *Corrected 2026-10-24:* this row previously read "Enabled, interim ruleset, 2026-10-06"; no `main` ruleset existed before 2026-10-24 (§9) |
 | Tag protection — `APP-*` | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
 | Private vulnerability reporting | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
 | Secret scanning + push protection | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
 | First-time contributor workflow approval | Required | Vaidhya | 2026-10-06 | Activated at Package 4 |
+| Dependency graph — `spec` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
+| Dependabot alerts — `spec` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
+| Dependabot security updates — `spec` | Enabled | Vaidhya | 2026-10-24 | Release Approver change; kept on by Release Approver decision. Runbook v1.2 §A.4.3 had left this off at WP4 Tranche 1 (§9) |
 | Repository | `agenticprocessprotocol/website` | Vaidhya | ~2026-10-08 (first commit 2026-10-12) | Private. Builds and deploys `agenticprocess.org`. Governed separately from `spec` (website `CLAUDE.md`, `docs/`). See §9 2026-10-19 |
 | Ruleset `main-protection` — `website` `main` | Created; **not enforced** (private repo on GitHub Free) | Vaidhya | 2026-10-19 | PR required (0 approvals), required check `website-checks`, block force push, restrict deletion, no bypass. Activates on upgrade to GitHub Team. Enforced control is the CI-gated deploy (§9) |
+| Dependency graph — `website` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
+| Dependabot alerts — `website` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
 
 ## 3. Teams and access
 
-| Team | Members | Approver | Date | Notes |
-|---|---|---|---|---|
-| `@agenticprocessprotocol/custodians` | APP Custodian, Vaidhya | Vaidhya | 2026-09-28 | Created in Package 1 |
-| `@agenticprocessprotocol/editors` | Vaidhya | Vaidhya | 2026-10-06 | Co-maintainer per §4 Option A |
-| `@agenticprocessprotocol/release-approvers` | Bhavna | Bhavna | 2026-10-06 | Named individual, not a shared mailbox |
-| `@agenticprocessprotocol/working-group` | *(empty)* | Vaidhya | 2026-10-XX | Reserved for WG formation |
+Members as named in `/governance/interim/CURRENT-CUSTODY.md` (v0.1 Draft). Team membership is not readable from the Custodian session; corrected on 2026-10-24 from the Release Approver's roster (§9).
+
+| Team | Members | Access on `spec` | Approver | Date | Notes |
+|---|---|---|---|---|---|
+| `@agenticprocessprotocol/custodians` | Vaidhya (`APPcustodian`) | Write (from 2026-10-24) | Vaidhya | 2026-09-28 | Created in Package 1 |
+| `@agenticprocessprotocol/editors` | Vaidhya (`APPcustodian`); Bhavna Krishnan (`bhavna-vach`), co-maintainer | Write (from 2026-10-24) | Vaidhya | 2026-10-06 | Co-maintainer per Custodian Instructions §4 |
+| `@agenticprocessprotocol/release-approvers` | Vaidhya (`APPcustodian`) | Write (from 2026-10-24) | Vaidhya | 2026-10-06 | Named individual, not a shared mailbox. Bypass actor on both rulesets |
+| `@agenticprocessprotocol/working-group` | *(empty)* | None | Vaidhya | 2026-10-XX | Reserved for WG formation |
 
 ## 4. GitHub Apps installed
 
@@ -49,6 +56,8 @@ This file records every operational element of the Agentic Process Protocol repo
 | Cloudflare Workers and Pages | Cloudflare | Organisation `agenticprocessprotocol` — Only select repositories: `spec`, `website`, `.github` (as found 2026-10-19) | Read: metadata. Read and write: administration, checks, code, deployments, pull requests | Vaidhya (Release Approver) | ~2026-10-08 (Release Approver recollection) | First recorded 2026-10-19 (see §9). Installed for the Cloudflare Pages Git integration (project `agenticprocess`). Scope narrowed to `website` only on 2026-10-19 (§9) |
 
 ### DCO App installation — admission checklist values (populated at Package 4)
+
+*Superseded 2026-10-24: the DCO App will not be installed. A repository-local DCO sign-off check in `validate-spec` replaces it (APP-DEC-0004 §3, PR #27). The checklist below is kept as the historical plan.*
 
 | Field | Verified value |
 |---|---|
@@ -279,6 +288,45 @@ Triggered by the scheduled `links` run #36 failing on `agenticprocess.org/privac
 - Cloudflare App install date recorded from recollection (~2026-10-08); confirm from org audit log (`integration_installation`) if exactness matters.
 - `actions/checkout` pin targets deprecated Node.js 20 (GitHub forces Node 24); update pins in both repos.
 - Website content: legal-folder link points to RC1 release copies (superseded Privacy Notice v0.3, Contribution Terms v0.2); multi-page labels `/governance#privacy`, `/contribute` in copy. Route via P7.
+
+## 2026-10-24 — `main` ruleset activation (Phase 2c, brought forward); team access; security settings; corrections
+
+**Date:** 2026-10-24
+**Approver:** Vaidhya (APPcustodian), Release Approver
+**Decision record:** APP-DEC-0004
+
+**Changes made by the Release Approver in the GitHub web UI** (the Custodian session cannot write rulesets or settings; see the 2026-10-09 entry):
+
+- **Ruleset `main-protection`** (ID 25775829) created on `spec`, target default branch, enforcement **Active**. Created 08:41 UTC; last edited 08:50 UTC. Required checks: the four `validate-spec` jobs and `release-integrity`. Squash only. Code-owner review off at activation. Full settings in APP-DEC-0004 §2.
+- **Team access on `spec`:** `custodians`, `editors` and `release-approvers` given **Write**. GitHub accepts a team as a code owner only with explicit Write access. GitHub's CODEOWNERS check now reports one remaining error: the `APP-[0-5]*` pattern, fixed in PR #24.
+- **Security settings:** dependency graph and Dependabot alerts enabled on `spec` and on `website`. Dependabot security updates enabled on `spec`, kept on by Release Approver decision.
+- **DCO:** the DCO App will not be installed. A repository-local `DCO sign-off validator` job in `validate-spec` replaces it (PR #27, draft) and becomes a required check once merged.
+- **Code-owner review:** stays off until each code-owning team has a member who does not author the pull requests it reviews (APP-DEC-0004 §4).
+- **Commit identity:** from 2026-10-24, Custodian-prepared commits are authored as `APPcustodian (Vaidhya) <333175196+APPcustodian@users.noreply.github.com>`, the same identity as their `Signed-off-by` line. Earlier commits used the role address `custodian@agenticprocess.org` as author.
+
+**State read from the API on 2026-10-24:**
+
+- Secret scanning: enabled. Push protection: enabled. Private vulnerability reporting: enabled.
+- Dependabot security updates: enabled (Release Approver, 2026-10-24; see above). Runbook v1.2 §A.4.3 had left this off at WP4 Tranche 1.
+
+**Verification (Tranche 2 acceptance):**
+
+- Test A, PR #22: an RFC 2119 keyword under `/drafts/spec/` with no change-impact manifest. `Normative-keyword validator` and `Release integrity + sign-off verification` failed; merge blocked.
+- Test B, PR #23: an informative file, no keyword. All five required checks passed; merge blocked only by the review requirement.
+- Test A re-run, PR #28, after PRs #20 and #26 merged: `Normative-keyword validator` and `Release integrity + sign-off verification` failed; merge blocked.
+- DCO: no DCO check existed in CI. The repository-local check (PR #27) was tested on synthetic commits and on every open pull request's commit range. Until it is a required check, the Custodian checks `Signed-off-by` trailers on every pull request.
+
+**Corrections to this file:**
+
+- §2, `main` row: previously "Enabled, interim ruleset, 2026-10-06". No `main` ruleset existed before 2026-10-24.
+- §3, teams table: previously listed `custodians` as "APP Custodian, Vaidhya", `editors` as Vaidhya only, and `release-approvers` as Bhavna (approver Bhavna). Corrected to the roster in `CURRENT-CUSTODY.md`.
+
+**KI-09 (Issue #16):** closes when APP-DEC-0004 merges.
+
+**Still open for Phase 2c:**
+
+- The DCO sign-off check (PR #27) and the reference-hygiene check (PR #21) merged, then both added to the required checks in one ruleset edit after PRs #25 and #27 merge.
+- The normative-keyword check follow-up (PR #29): count only manifests added by the pull request. PR #26 merged and the Test A re-run passed (PR #28).
 
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
