@@ -55,7 +55,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full decision tree.
 Every pull request to `main` requires:
 
 - **One approving review from a person other than the last pusher** (enforced by GitHub ruleset).
-- **CODEOWNER review** for the paths the PR touches (enforced by [`.github/CODEOWNERS`](.github/CODEOWNERS) and the ruleset).
+- **CODEOWNER review** for the paths the PR touches (requested through [`.github/CODEOWNERS`](.github/CODEOWNERS); the ruleset enforces it once code-owner review is switched on — see §4).
 
 **Additionally**, PRs of the following classes require **explicit Release Approver sign-off** recorded in the PR body (sign-off template provided in the PR template, verified by the `release-integrity` check):
 
@@ -118,7 +118,7 @@ Every irreversible action is performed by the Release Approver, with their own G
 
 ## 4. Branch protection and ruleset posture (interim)
 
-The `main` branch is protected by a GitHub ruleset:
+The `main` branch is protected by the GitHub ruleset `main-protection`, active since 2026-10-24. [APP-DEC-0004](decisions/APP-DEC-0004.md) records its settings and the planned additions.
 
 | Rule | Interim setting |
 |---|---|
@@ -127,18 +127,19 @@ The `main` branch is protected by a GitHub ruleset:
 | Require approval other than last pusher | Yes |
 | Dismiss stale approvals on push | Yes |
 | Require conversation resolution | Yes |
-| Require code-owner review | Yes |
-| Required status checks | `validate-spec`, `validate-schemas`, `links`, `release-integrity`, `DCO` |
+| Require code-owner review | Not yet — switched on once each code-owning team has a member who does not author the pull requests it reviews (APP-DEC-0004 §4) |
+| Required status checks | The four `validate-spec` jobs (manifest, legacy-name, normative-keyword, cross-reference) and `release-integrity`. `links` and `validate-schemas` run when their paths change but are not yet required. The `validate-spec` DCO sign-off and reference-hygiene jobs are added when they merge (APP-DEC-0004 §3) |
+| Require branches up to date | No (rulesets cannot scope this to release PRs; see APP-DEC-0004 §5) |
 | Require linear history | Yes |
 | Squash merge only | Yes |
 | Block force pushes | Yes |
 | Block deletions | Yes |
 | Signed commits | No (deferred — see §4.1) |
-| Bypass list | `release-approvers` only; never "all admins" |
-| Restrict workflow changes | Yes (via `.github/CODEOWNERS` ownership of `.github/workflows/**`) |
+| Bypass list | `release-approvers` only, for pull requests only; never "all admins" |
+| Restrict workflow changes | Via `.github/CODEOWNERS` ownership of `.github/workflows/**`; enforced once code-owner review is switched on |
 | Protect release tags | Yes — tag ruleset for `APP-*` prevents creation, update, or deletion outside `release-approvers` |
 
-**Ruleset activation is blocked until the co-maintainer is confirmed in the editors team with 2FA.** This is because GitHub does not allow self-approval, and the "approval other than last pusher" rule requires a second reviewer with write access.
+The "approval other than last pusher" rule works because a co-maintainer with Write access sits in the `editors` team; GitHub does not allow self-approval.
 
 ### 4.1 Signed commits posture
 
