@@ -76,7 +76,7 @@ OR
 <!-- The following checks are run automatically. The Custodian cannot
      prepare merge until all pass. -->
 
-- [ ] `validate-spec` (manifest, legacy-name, keyword, cross-reference, DCO sign-off)
+- [ ] `validate-spec` (manifest, legacy-name, reference-hygiene, keyword, cross-reference, DCO sign-off)
 - [ ] `validate-schemas` (if PR touches `/schemas/**`)
 - [ ] `links`
 - [ ] `release-integrity` (if PR touches `/releases/**` or any class requiring Release Approver sign-off below)

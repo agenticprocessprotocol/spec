@@ -22,7 +22,7 @@ This file records every operational element of the Agentic Process Protocol repo
 |---|---|---|---|---|
 | Repository | `agenticprocessprotocol/spec` | Vaidhya | 2026-09-XX | Public, empty at creation |
 | Default branch | `main` | Vaidhya | 2026-10-XX | Set during Package 2 PR merge |
-| Branch protection — `main` | Ruleset `main-protection` (ID 25775829), Active | Vaidhya | 2026-10-24 | Settings per APP-DEC-0004. *Corrected 2026-10-24:* this row previously read "Enabled, interim ruleset, 2026-10-06"; no `main` ruleset existed before 2026-10-24 (§9) |
+| Branch protection — `main` | Ruleset `main-protection` (ID 25775829), Active | Vaidhya | 2026-10-24 | Settings per APP-DEC-0004; required checks extended to seven on 2026-10-24 (§9). *Corrected 2026-10-24:* this row previously read "Enabled, interim ruleset, 2026-10-06"; no `main` ruleset existed before 2026-10-24 (§9) |
 | Tag protection — `APP-*` | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
 | Private vulnerability reporting | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
 | Secret scanning + push protection | Enabled | Vaidhya | 2026-10-06 | Activated at Package 4 |
@@ -327,6 +327,47 @@ Triggered by the scheduled `links` run #36 failing on `agenticprocess.org/privac
 
 - The DCO sign-off check (PR #27) and the reference-hygiene check (PR #21) merged, then both added to the required checks in one ruleset edit after PRs #25 and #27 merge.
 - The normative-keyword check follow-up (PR #29): count only manifests added by the pull request. PR #26 merged and the Test A re-run passed (PR #28).
+
+## 2026-10-24 — Phase 2c complete: required checks extended; merges
+
+**Date:** 2026-10-24
+**Approver:** Vaidhya (APPcustodian), Release Approver
+**Decision record:** APP-DEC-0004 §3
+
+**Merged to `main`**, in the Release Approver's order. Each PR was squash-merged by the Release Approver with an approving review from the co-maintainer on its final commit; no ruleset bypass was used:
+
+| PR | Merge commit | Content |
+|---|---|---|
+| #20 | `4df3851` | Seed `/drafts/`; citations to documents outside the APP suite removed |
+| #26 | `d68114d` | Normative-keyword check: manifest must come from the PR |
+| #29 | `6883b60` | Normative-keyword check: only manifests added by the PR count |
+| #21 | `e6a226d` | Reference-hygiene validator |
+| #24 | `00bdacb` | CODEOWNERS pattern fix (GitHub's CODEOWNERS check: 0 errors on `main`) |
+| #25 | `f0bc126` | APP-DEC-0004, APP-DEC-0006, registry and GOVERNANCE corrections; closed Issue #16 (KI-09) |
+| #27 | `9f215eb` | DCO sign-off validator |
+
+**Ruleset `main-protection` edited** by the Release Approver in the web UI (last edited 11:41 UTC). `Reference-hygiene validator` and `DCO sign-off validator` were added to the required checks, as planned in APP-DEC-0004 §3. Required checks are now:
+
+- `Manifest validator`
+- `Legacy-name validator`
+- `Normative-keyword validator`
+- `Cross-reference validator`
+- `Release integrity + sign-off verification`
+- `Reference-hygiene validator`
+- `DCO sign-off validator`
+
+All seven come from GitHub Actions. Code-owner review is still off. Verified via the rulesets API.
+
+**Phase 2c completion criteria** (INTERIM-PHASES v1.1) are met when this entry merges:
+
+- ruleset active;
+- DCO sign-off check merged and required (DCO App not installed);
+- keyword-check fix merged and the Test A re-run blocking (PR #28);
+- reference-hygiene check merged and required;
+- Issue #16 closed;
+- this entry.
+
+**Note:** pull requests opened before a check became required report it only after a fresh run. Open Dependabot PRs #2–#6 predate both new jobs.
 
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
