@@ -92,3 +92,25 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run cross-reference validator
         run: python .github/scripts/validate_cross_references.py
+
+  dco:
+    name: DCO sign-off validator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v6.0.3
+        with:
+          fetch-depth: 0  # need every commit in the PR range
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        working-directory: .github/scripts
+        run: pip install -r requirements.txt
+      - name: Run DCO sign-off validator
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: python .github/scripts/validate_dco.py
