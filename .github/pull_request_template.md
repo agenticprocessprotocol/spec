@@ -91,6 +91,9 @@ OR
        - Legal / CSL companion (change to /legal/**, csl/Governance.md, csl/Notices.md)
        - Schema or reference design (change under /schemas/**, /reference/**)
        - Normative (any of the triggers in Change classification above)
+       - Governance and CI (change to GOVERNANCE.md, CONTRIBUTING.md,
+         SECURITY.md, OPERATIONS-REGISTRY.md, or under /.github/**,
+         including Dependabot PRs)
 
      For editorial and other changes, write "N/A — classification does
      not require Release Approver sign-off" in each field.
@@ -104,7 +107,7 @@ OR
 
 - **I am the Release Approver and I sign off on this change:** <!-- Name -->
 - **Date:** <!-- YYYY-MM-DD -->
-- **Classification sign-off applies to:** <!-- one of: Release / Scope / Legal / Schema / Reference / Normative / N/A -->
+- **Classification sign-off applies to:** <!-- one of: Release / Scope / Legal / Schema / Reference / Normative / Governance and CI / N/A -->
 - **Decision record (if applicable):** <!-- /decisions/APP-DEC-XXXX.md or N/A -->
 - **Confirming:**
   - [ ] Change-impact manifest reviewed and acceptable (for Normative; otherwise N/A).
