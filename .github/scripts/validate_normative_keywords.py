@@ -21,7 +21,7 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from common import ROOT, Reporter, diff_added_lines, load_allowlist, main_guard
+from common import ROOT, Reporter, changed_files_since, diff_added_lines, load_allowlist, main_guard
 
 # Word-boundary match for RFC 2119/8174 keywords. The lowercase form
 # in prose is intentionally NOT flagged — only the uppercased normative
@@ -40,12 +40,21 @@ def _is_informative(path: pathlib.Path, allow: dict) -> bool:
     return any(fnmatch.fnmatch(rel, g) for g in globs)
 
 
-def _change_manifests_present() -> list[pathlib.Path]:
-    d = ROOT / "changes"
-    if not d.is_dir():
-        return []
-    # Any file named APP-XXXX.md (not the template) counts.
-    return [p for p in d.glob("APP-*.md") if p.name != "_TEMPLATE.md"]
+def _change_manifests_in_pr(base: str, head: str) -> list[pathlib.Path]:
+    """Change-impact manifests added or modified by THIS pull request.
+
+    A manifest that already exists on the base branch belongs to an earlier
+    change and does not cover this one.
+    """
+    out = []
+    for p in changed_files_since(base, head):
+        try:
+            rel = p.relative_to(ROOT)
+        except ValueError:
+            continue
+        if rel.parts[:1] == ("changes",) and fnmatch.fnmatch(rel.name, "APP-*.md") and p.is_file():
+            out.append(p)
+    return out
 
 
 def _run() -> int:
@@ -73,11 +82,11 @@ def _run() -> int:
     if not flagged:
         return r.finish()
 
-    manifests = _change_manifests_present()
+    manifests = _change_manifests_in_pr(base, head)
     if manifests:
         for path, lineno, text in flagged:
             r.warn(
-                f"normative-keyword change detected; change-impact manifest present ({len(manifests)} file(s)): {text.strip()[:200]}",
+                f"normative-keyword change detected; change-impact manifest in this PR ({len(manifests)} file(s)): {text.strip()[:200]}",
                 file=path,
                 line=lineno,
             )
@@ -86,7 +95,7 @@ def _run() -> int:
 
     for path, lineno, text in flagged:
         r.error(
-            f"normative-keyword change requires a change-impact manifest under /changes/APP-XXXX.md: {text.strip()[:200]}",
+            f"normative-keyword change requires a change-impact manifest under /changes/APP-XXXX.md added or updated in this PR: {text.strip()[:200]}",
             file=path,
             line=lineno,
         )
