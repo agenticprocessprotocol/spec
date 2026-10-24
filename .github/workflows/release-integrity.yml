@@ -10,6 +10,8 @@ name: release-integrity
 #      reference / normative / governance and CI), verifies the Release
 #      Approver sign-off section of the PR body is populated (not left
 #      as default placeholders). Runs again when the PR body is edited.
+#      The sign-off path list and the list of authorised signers are
+#      read from the base branch, so a PR cannot loosen either for itself.
 #
 # This is how differential sign-off is enforced on top of the uniform
 # "1 approval + CODEOWNER + status checks" ruleset.
@@ -68,6 +70,10 @@ jobs:
       - name: Run release-integrity validator
         env:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
+          # Needed by the release-immutability test and by the base-branch
+          # reads of the sign-off paths and release-approvers.txt.
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           PR_BODY_PATH: .github/scripts/_runtime/pr_body.md
           CHANGED_PATHS_FILE: .github/scripts/_runtime/changed_paths.txt
         run: python .github/scripts/validate_release_integrity.py

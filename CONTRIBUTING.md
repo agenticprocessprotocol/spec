@@ -156,7 +156,7 @@ The Custodian will not prepare the merge until (i) the manifest is present and c
 
 ## 7. Changes to this file
 
-Material changes to `CONTRIBUTING.md` require a PR. Clerical corrections (typos, broken-link fixes) may be submitted directly; substantive policy changes should first be opened as a Discussion to invite input.
+Every change to `CONTRIBUTING.md` is made by pull request and requires Release Approver sign-off per [`GOVERNANCE.md`](GOVERNANCE.md) §2.2 (governance and CI changes), including clerical corrections. Substantive policy changes should first be opened as a Discussion to invite input.
 
 ---
 

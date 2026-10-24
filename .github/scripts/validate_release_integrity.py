@@ -13,7 +13,9 @@ Check A — Release PR integrity.
 
 Check B — Release Approver sign-off presence.
   Fires when the PR touches a path in the allowlist's
-  release_integrity.sign_off_required_paths. Verifies that:
+  release_integrity.sign_off_required_paths. The list is read from the
+  base branch and from the PR, and both apply: a PR cannot remove its own
+  paths from the list, and paths it adds apply to it. Verifies that:
     * The PR body contains a Release Approver sign-off block.
     * The sign-off block's named fields are populated (name, date, and
       a classification picked from the list, not a placeholder).
@@ -28,6 +30,8 @@ import pathlib
 import re
 import subprocess
 import sys
+
+import yaml
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from common import ROOT, Reporter, load_allowlist, main_guard
@@ -148,8 +152,41 @@ def _is_populated(raw: str) -> tuple[bool, str]:
     return True, stripped
 
 
+def _sign_off_paths(allow: dict) -> list[str]:
+    return list(((allow or {}).get("release_integrity") or {}).get("sign_off_required_paths") or [])
+
+
+def _sign_off_globs(r: Reporter, allow: dict) -> list[str]:
+    """Sign-off paths from the base branch, plus any the PR adds.
+
+    The base-branch list is read with `git show`, as release-approvers.txt
+    is, so a PR cannot drop its own paths from the list to escape the
+    check. Without a base ref (workflow_dispatch) only the PR's list is used.
+    """
+    head = _sign_off_paths(allow)
+    base = os.environ.get("BASE_SHA", "")
+    if not base:
+        return head
+    try:
+        text = subprocess.check_output(
+            ["git", "show", f"{base}:.github/scripts/allowlist.yml"],
+            cwd=ROOT, text=True, stderr=subprocess.DEVNULL,
+        )
+        base_globs = _sign_off_paths(yaml.safe_load(text) or {})
+    except (subprocess.CalledProcessError, yaml.YAMLError):
+        r.warn("could not read sign-off paths from allowlist.yml on the base branch; using this PR's list only")
+        return head
+    removed = [g for g in base_globs if g not in head]
+    if removed:
+        r.warn(
+            f"this PR removes {len(removed)} sign-off path(s) from allowlist.yml; "
+            "the base-branch list still applies to this PR"
+        )
+    return base_globs + [g for g in head if g not in base_globs]
+
+
 def _check_sign_off(r: Reporter, changed_paths: list[str], pr_body: str, allow: dict) -> None:
-    globs = (allow.get("release_integrity", {}).get("sign_off_required_paths") or [])
+    globs = _sign_off_globs(r, allow)
     matched = _any_match(changed_paths, globs)
     if not matched:
         print("release-integrity: no sign-off-required paths touched")

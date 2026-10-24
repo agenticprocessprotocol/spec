@@ -91,4 +91,4 @@ Dependabot PRs follow the same review process as any other PR, including the DCO
 
 ## 5. Changes to this policy
 
-Material changes to `SECURITY-AUTOMATION.md` require Release Approver sign-off per [`GOVERNANCE.md`](GOVERNANCE.md) §2.2 (classified as a legal/governance change path). Clerical corrections may be submitted directly.
+Every change to `SECURITY-AUTOMATION.md` is made by pull request and requires Release Approver sign-off per [`GOVERNANCE.md`](GOVERNANCE.md) §2.2 (governance and CI changes), including clerical corrections.
