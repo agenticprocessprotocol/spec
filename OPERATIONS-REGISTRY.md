@@ -73,15 +73,15 @@ Members as named in `/governance/interim/CURRENT-CUSTODY.md` (v0.1 Draft). Team 
 
 ## 5. External GitHub Actions used
 
-Every third-party action pinned to a full commit SHA. Dependabot keeps SHAs current.
+Every third-party action is pinned to a full commit SHA with a version comment. Dependabot proposes updates; the Release Approver merges them. The workflow files are authoritative; this table summarises them and is updated with each change of pin.
 
-| Action | Pin | First used | Approver | Notes |
-|---|---|---|---|---|
-| `actions/checkout` | *(SHA pin recorded in workflows)* | 2026-10-XX | Vaidhya | Standard checkout |
-| `actions/setup-python` | *(SHA pin)* | 2026-10-XX | Vaidhya | Python 3.12 for validators |
-| `lycheeverse/lychee-action` | *(SHA pin)* | 2026-10-XX | Vaidhya | Link checker |
+| Action | Version | Pin (full SHA) | Used in | First used | Last updated | Approver | Notes |
+|---|---|---|---|---|---|---|---|
+| `actions/checkout` | v7.0.1 | `3d3c42e5aac5ba805825da76410c181273ba90b1` | `validate-spec` (6 jobs), `release-integrity`, `validate-schemas`, `links` | 2026-10-06 (PR #1) | 2026-10-24 (PR #3, `1bff55b`) | Vaidhya | Previous pin `692973e` was v4.1.7, commented `# v6.0.3` in error from PR #1 until PR #3. Node 24 runtime |
+| `actions/setup-python` | v7.1.0 | `6d4fd22b20465ccc0f7354476588e8df7c9ca0e0` | `validate-spec` (6 jobs), `release-integrity`, `validate-schemas` | 2026-10-06 (PR #1) | 2026-10-24 (PR #2, `fbf5522`) | Vaidhya | Previous pin `ece7cb0` (v6.3.0). Python 3.12 for the validators. Node 24 runtime |
+| `lycheeverse/lychee-action` | v2.9.0 | `e7477775783ea5526144ba13e8db5eec57747ce8` | `links` | 2026-10-06 (PR #1) | 2026-10-24 (PR #5, `04ea801`) | Vaidhya | Previous pin `8646ba3` (v2.8.0). Link checker |
 
-*(Entries added as workflows evolve. SHAs are in the workflow files; this table is a human-readable summary.)*
+*(A row is added when a workflow adopts a new action. Each change of pin also gets a §9 entry.)*
 
 ## 6. Mail infrastructure
 
@@ -368,6 +368,34 @@ All seven come from GitHub Actions. Code-owner review is still off. Verified via
 - this entry.
 
 **Note:** pull requests opened before a check became required report it only after a fresh run. Open Dependabot PRs #2–#6 predate both new jobs.
+
+## 2026-10-24 — Dependabot updates merged: GitHub Actions and validator dependencies
+
+**Date:** 2026-10-24
+**Approver:** Vaidhya (APPcustodian), Release Approver
+
+The five Dependabot pull requests open since 2026-10-06 were rebased onto `main`, so all seven required checks ran on each. The Release Approver then squash-merged them one at a time. Each had an approving review on its final commit from someone other than the last pusher; no ruleset bypass was used.
+
+| PR | Merge commit | Update | Approving review |
+|---|---|---|---|
+| #6 | `ec35a5c` | PyYAML requirement for the validators: `>=6.0.3,<7.0` | Release Approver |
+| #5 | `04ea801` | `lycheeverse/lychee-action` v2.8.0 → v2.9.0 | Release Approver |
+| #4 | `dc46615` | jsonschema requirement for the validators: `>=4.26.0,<5.0` | Release Approver |
+| #3 | `1bff55b` | `actions/checkout` v4.1.7 → v7.0.1; version comments corrected | Co-maintainer (the comment fix was pushed from the Release Approver's account) |
+| #2 | `fbf5522` | `actions/setup-python` v6.3.0 → v7.1.0 | Release Approver |
+
+**Checks by the Custodian before each merge:**
+
+- Each new pin matches the commit its upstream version tag points to.
+- Release notes for the major-version jumps (#3, #2) were read; nothing affects these workflows:
+  - `actions/checkout` v7 refuses to check out fork code under `pull_request_target` and `workflow_run`, which no workflow here uses.
+  - `actions/setup-python` v7 removed the `pip-install` input, which no workflow here uses.
+- Each commit carries a `Signed-off-by` trailer.
+- All seven required checks passed on each final commit. #2 was not re-run after #3 merged; the combination passed on `main` at `fbf5522` and again at `d52a60a`.
+
+**Version-comment error corrected:** from PR #1 until PR #3, every `actions/checkout` pin carried the comment `# v6.0.3` while pinning v4.1.7 (`692973e`). The SHA is what runs, so pin integrity was unaffected; the comment was wrong. §5 now records each pin with its verified version.
+
+**Open item from the 2026-10-19 entry** ("`actions/checkout` pin targets deprecated Node.js 20"): resolved for `spec`. Both `actions/checkout` v7.0.1 and `actions/setup-python` v7.1.0 run on Node 24. Not checked for `website`, which is outside this session's access; that half stays open.
 
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
