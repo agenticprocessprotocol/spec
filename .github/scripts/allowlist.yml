@@ -82,7 +82,9 @@ cross_references:
 
 # ------------------------------------------------------------------
 # release_integrity: paths that trigger the Release Approver sign-off
-# verification check (the "classes" from GOVERNANCE.md §2.2).
+# verification check (the "classes" from GOVERNANCE.md §2.2). The check
+# applies this list as it stands on the base branch plus any paths a PR
+# adds, so removing a path takes effect only after the PR merges.
 # ------------------------------------------------------------------
 release_integrity:
   sign_off_required_paths:
@@ -99,6 +101,7 @@ release_integrity:
     - "CONTRIBUTING.md"
     - "SECURITY.md"
     - "OPERATIONS-REGISTRY.md"
+    - "SECURITY-AUTOMATION.md"
     - ".github/**"
 
 # ------------------------------------------------------------------
