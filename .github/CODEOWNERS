@@ -57,10 +57,16 @@
 # ----------------------------------------------------------------------
 # Specification drafts.
 # Normative drafts default to editors; APP-1 is elevated to custodians +
-# release-approvers because of its constitutional significance (listed
-# AFTER the general rule so it overrides).
+# release-approvers because of its constitutional significance.
+# CODEOWNERS does not support character ranges such as [0-5], so each
+# normative document has its own line. APP-1 is listed separately with
+# its elevated owners; it is no longer covered by an editors line.
 # ----------------------------------------------------------------------
-/drafts/spec/APP-[0-5]*            @agenticprocessprotocol/editors
+/drafts/spec/APP-0*                @agenticprocessprotocol/editors
+/drafts/spec/APP-2*                @agenticprocessprotocol/editors
+/drafts/spec/APP-3*                @agenticprocessprotocol/editors
+/drafts/spec/APP-4*                @agenticprocessprotocol/editors
+/drafts/spec/APP-5*                @agenticprocessprotocol/editors
 /drafts/spec/APP-1*                @agenticprocessprotocol/custodians @agenticprocessprotocol/release-approvers
 
 # Informative guides: editors.
