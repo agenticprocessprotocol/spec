@@ -30,6 +30,7 @@ This file records every operational element of the Agentic Process Protocol repo
 | Dependency graph — `spec` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
 | Dependabot alerts — `spec` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
 | Dependabot security updates — `spec` | Enabled | Vaidhya | 2026-10-24 | Release Approver change; kept on by Release Approver decision. Runbook v1.2 §A.4.3 had left this off at WP4 Tranche 1 (§9) |
+| Automatically delete head branches — `spec` | Enabled | Vaidhya | 2026-10-24 | Release Approver change. A pull request's branch is deleted when it merges (§9) |
 | Repository | `agenticprocessprotocol/website` | Vaidhya | ~2026-10-08 (first commit 2026-10-12) | Private. Builds and deploys `agenticprocess.org`. Governed separately from `spec` (website `CLAUDE.md`, `docs/`). See §9 2026-10-19 |
 | Ruleset `main-protection` — `website` `main` | Created; **not enforced** (private repo on GitHub Free) | Vaidhya | 2026-10-19 | PR required (0 approvals), required check `website-checks`, block force push, restrict deletion, no bypass. Activates on upgrade to GitHub Team. Enforced control is the CI-gated deploy (§9) |
 | Dependency graph — `website` | Enabled | Vaidhya | 2026-10-24 | Release Approver change (§9) |
@@ -396,6 +397,23 @@ The five Dependabot pull requests open since 2026-10-06 were rebased onto `main`
 **Version-comment error corrected:** from PR #1 until PR #3, every `actions/checkout` pin carried the comment `# v6.0.3` while pinning v4.1.7 (`692973e`). The SHA is what runs, so pin integrity was unaffected; the comment was wrong. §5 now records each pin with its verified version.
 
 **Open item from the 2026-10-19 entry** ("`actions/checkout` pin targets deprecated Node.js 20"): resolved for `spec`. Both `actions/checkout` v7.0.1 and `actions/setup-python` v7.1.0 run on Node 24. Not checked for `website`, which is outside this session's access; that half stays open.
+
+## 2026-10-24 — Sign-off for governance and CI changes; automatic head-branch deletion; branch clean-up
+
+**Date:** 2026-10-24
+**Approver:** Vaidhya (APPcustodian), Release Approver
+
+- **Release Approver sign-off extended** (PR #32, merge `9f02321`). `release-integrity` now requires the sign-off fields on any change to `GOVERNANCE.md`, `CONTRIBUTING.md`, `SECURITY.md`, `OPERATIONS-REGISTRY.md` or `.github/**`. This is the new class "Governance and CI changes" in `GOVERNANCE.md` §2.2. Dependabot pull requests fall in this class. First enforced on #32 itself and on #31.
+- **Sign-off for PRs #25 and #30**, both of which changed `GOVERNANCE.md` and this file, was recorded after merge as comments on those PRs (2026-10-24, 12:45 UTC). Their sign-off fields had been left empty, and the check did not cover these paths at the time.
+- **Automatically delete head branches:** enabled on `spec` by the Release Approver in the web UI. Verified via the API (`delete_branch_on_merge: true`). The branches of #31 and #32 were deleted when they merged.
+- **Branch clean-up:** the Release Approver deleted the remaining branches, leaving only `main`:
+  - head branches of merged PRs #7, #18–#21, #24–#27, #29 and #30;
+  - the branch of test PR #28, closed unmerged;
+  - two branches with no PR whose commits were all on `main`.
+
+  Each was checked first. Each merged PR's branch was unchanged since its merge, and the APP-2026-10-RC1 tag commit (`59b296a`) is on `main`. Closed and merged PRs keep their commits on GitHub.
+
+**Verification:** GitHub's rule-suite log shows every merge to `main` on 2026-10-24 as `pass`, not `bypass`. On #32, `release-integrity` passed (13:12 UTC) before the merge (13:13 UTC).
 
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
