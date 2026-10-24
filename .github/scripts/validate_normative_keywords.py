@@ -4,7 +4,9 @@
 Fails if a diff adds, removes, or modifies lines containing RFC 2119/8174
 keywords (MUST, MUST NOT, SHOULD, SHOULD NOT, SHALL, SHALL NOT, MAY,
 REQUIRED, RECOMMENDED, OPTIONAL) in normative paths, UNLESS the PR
-includes a completed change-impact manifest under /changes/.
+adds a new change-impact manifest under /changes/APP-*.md. Every normative
+change gets its own new manifest: a manifest already on the base branch,
+an edit to one, or a renamed one does not count.
 
 Behaviour:
   * On push to main or workflow_dispatch (no diff context): no-op, exits 0.
@@ -18,10 +20,11 @@ import fnmatch
 import os
 import pathlib
 import re
+import subprocess
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from common import ROOT, Reporter, changed_files_since, diff_added_lines, load_allowlist, main_guard
+from common import ROOT, Reporter, diff_added_lines, load_allowlist, main_guard
 
 # Word-boundary match for RFC 2119/8174 keywords. The lowercase form
 # in prose is intentionally NOT flagged — only the uppercased normative
@@ -41,20 +44,25 @@ def _is_informative(path: pathlib.Path, allow: dict) -> bool:
 
 
 def _change_manifests_in_pr(base: str, head: str) -> list[pathlib.Path]:
-    """Change-impact manifests added or modified by THIS pull request.
+    """Change-impact manifests ADDED by this pull request.
 
-    A manifest that already exists on the base branch belongs to an earlier
-    change and does not cover this one.
+    Every normative change gets its own new manifest. A manifest that
+    already exists on the base branch belongs to an earlier change, so
+    editing it or renaming it (rename detection is on: -M) does not count.
     """
-    out = []
-    for p in changed_files_since(base, head):
-        try:
-            rel = p.relative_to(ROOT)
-        except ValueError:
-            continue
-        if rel.parts[:1] == ("changes",) and fnmatch.fnmatch(rel.name, "APP-*.md") and p.is_file():
-            out.append(p)
-    return out
+    try:
+        out = subprocess.check_output(
+            ["git", "diff", "--name-only", "--diff-filter=A", "-M", base, head, "--", "changes/"],
+            cwd=ROOT, text=True,
+        )
+    except subprocess.CalledProcessError:
+        return []
+    found = []
+    for line in out.splitlines():
+        rel = pathlib.PurePosixPath(line.strip())
+        if len(rel.parts) == 2 and fnmatch.fnmatch(rel.name, "APP-*.md") and (ROOT / rel).is_file():
+            found.append(ROOT / rel)
+    return found
 
 
 def _run() -> int:
@@ -95,7 +103,7 @@ def _run() -> int:
 
     for path, lineno, text in flagged:
         r.error(
-            f"normative-keyword change requires a change-impact manifest under /changes/APP-XXXX.md added or updated in this PR: {text.strip()[:200]}",
+            f"normative-keyword change requires a change-impact manifest under /changes/APP-XXXX.md added in this PR: {text.strip()[:200]}",
             file=path,
             line=lineno,
         )
