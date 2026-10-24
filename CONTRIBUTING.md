@@ -119,8 +119,7 @@ The disclosure field is in every Issue Form and PR template.
 
 Every PR must pass:
 
-- **DCO check** — all commits signed off.
-- **`validate-spec`** — manifest, legacy-name, keyword, and cross-reference validators.
+- **`validate-spec`** — manifest, legacy-name, reference-hygiene, keyword, cross-reference, and DCO sign-off validators. The DCO sign-off validator fails if any commit lacks a `Signed-off-by:` trailer (see §3).
 - **`validate-schemas`** (for schema-touching PRs) — schema validation against the published meta-schema plus `examples/` and `examples/invalid/`.
 - **`links`** — all internal and external links resolve.
 - **`release-integrity`** (for release PRs) — manifest and release-notes integrity, including the Release Approver sign-off template field.

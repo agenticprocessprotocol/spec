@@ -72,7 +72,7 @@ Where the Release Approver is also an editor (which is normal at interim), the R
 Normative changes must pass through the Normative Suite Control gate before merge:
 
 1. A completed **change-impact manifest** is present at `/changes/APP-XXXX.md`, covering all nine fields required by APP-1 §4 (requirement ID deltas, affected documents, cross-reference updates, APP-5 applicability impact, traceability impact, test impact, migration impact, suite baseline regeneration).
-2. All automated checks pass: `validate-spec` (manifest, legacy-name, keyword, cross-reference), `links`, `release-integrity`, DCO.
+2. All automated checks pass: `validate-spec` (manifest, legacy-name, reference-hygiene, keyword, cross-reference, DCO sign-off), `links`, `release-integrity`.
 3. The approval threshold in §2.2 is met: Editor approval + CODEOWNER review + Release Approver sign-off.
 
 Only then will the Custodian prepare the merge. The Release Approver clicks Merge.
@@ -128,7 +128,7 @@ The `main` branch is protected by the GitHub ruleset `main-protection`, active s
 | Dismiss stale approvals on push | Yes |
 | Require conversation resolution | Yes |
 | Require code-owner review | Not yet — switched on once each code-owning team has a member who does not author the pull requests it reviews (APP-DEC-0004 §4) |
-| Required status checks | The four `validate-spec` jobs (manifest, legacy-name, normative-keyword, cross-reference) and `release-integrity`. `links` and `validate-schemas` run when their paths change but are not yet required. The `validate-spec` DCO sign-off and reference-hygiene jobs are added when they merge (APP-DEC-0004 §3) |
+| Required status checks | The six `validate-spec` jobs (manifest, legacy-name, reference-hygiene, normative-keyword, cross-reference, DCO sign-off) and `release-integrity`. `links` and `validate-schemas` run when their paths change but are not yet required (APP-DEC-0004 §3) |
 | Require branches up to date | No (rulesets cannot scope this to release PRs; see APP-DEC-0004 §5) |
 | Require linear history | Yes |
 | Squash merge only | Yes |
