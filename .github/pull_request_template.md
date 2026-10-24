@@ -45,7 +45,7 @@ Change-impact manifest path: `/changes/APP-____.md`
 
 <!-- Every commit in this PR must carry a Signed-off-by: trailer.
      See /CONTRIBUTING.md §3 for how to sign off (CLI and web UI).
-     The DCO check will fail otherwise. -->
+     The `DCO sign-off validator` job in `validate-spec` fails otherwise. -->
 
 - [ ] All commits in this PR are signed off per the Developer Certificate of Origin 1.1.
 - [ ] If this PR implements an idea originated by someone who could not sign off, that person is credited in the PR description above and in the CHANGELOG entry (per `/CONTRIBUTING.md` §3.3).
@@ -76,8 +76,7 @@ OR
 <!-- The following checks are run automatically. The Custodian cannot
      prepare merge until all pass. -->
 
-- [ ] DCO
-- [ ] `validate-spec` (manifest, legacy-name, keyword, cross-reference)
+- [ ] `validate-spec` (manifest, legacy-name, keyword, cross-reference, DCO sign-off)
 - [ ] `validate-schemas` (if PR touches `/schemas/**`)
 - [ ] `links`
 - [ ] `release-integrity` (if PR touches `/releases/**` or any class requiring Release Approver sign-off below)
