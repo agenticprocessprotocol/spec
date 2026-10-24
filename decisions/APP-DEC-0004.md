@@ -7,7 +7,7 @@
 | Status | Accepted |
 | Decided by | Vaidhya, Release Approver (Interim Custodian) |
 | Instruments affected | Ruleset `main-protection` on `agenticprocessprotocol/spec`; repository access of teams `custodians`, `editors`, `release-approvers`; `GOVERNANCE.md` §2.2 and §4; `OPERATIONS-REGISTRY.md` §2, §3, §9 |
-| Related | APP-DEC-0003 (KI-09 tracking); Issue #16 (KI-09); PR #24 (CODEOWNERS pattern fix); PR #26 (normative-keyword check fix, merged); PR #27 (DCO sign-off check); test PRs #22, #23 and #28 |
+| Related | APP-DEC-0003 (KI-09 tracking); Issue #16 (KI-09); PR #24 (CODEOWNERS pattern fix); PR #26 (normative-keyword check fix, merged); PR #29 (follow-up: count only manifests added by the PR); PR #27 (DCO sign-off check); test PRs #22, #23 and #28 |
 
 ## Decision
 
@@ -103,7 +103,7 @@ The re-run (#28) confirms that a change-impact manifest already on `main` no lon
 
 ## 7. Known Issue disposition
 
-KI-09 (Issue #16) is resolved by this record: the `main` ruleset is active, and the differential sign-off check has been exercised on live pull requests (#20, #22, #23). The remaining Phase 2c items continue outside KI-09: the DCO sign-off check (PR #27), the normative-keyword check (PR #26, merged; Test A re-run passed) and its follow-up counting only manifests added by the pull request, and the reference-hygiene check (PR #21), each merged and added to the required checks.
+KI-09 (Issue #16) is resolved by this record: the `main` ruleset is active, and the differential sign-off check has been exercised on live pull requests (#20, #22, #23). The remaining Phase 2c items continue outside KI-09: the DCO sign-off check (PR #27), the normative-keyword check (PR #26, merged; Test A re-run passed) and its follow-up counting only manifests added by the pull request (PR #29), and the reference-hygiene check (PR #21), each merged and added to the required checks.
 
 ## Appendix — API export (2026-10-24)
 

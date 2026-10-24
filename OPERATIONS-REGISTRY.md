@@ -326,7 +326,7 @@ Triggered by the scheduled `links` run #36 failing on `agenticprocess.org/privac
 **Still open for Phase 2c:**
 
 - The DCO sign-off check (PR #27) and the reference-hygiene check (PR #21) merged, then both added to the required checks in one ruleset edit after PRs #25 and #27 merge.
-- The normative-keyword check follow-up: count only manifests added by the pull request. PR #26 merged and the Test A re-run passed (PR #28).
+- The normative-keyword check follow-up (PR #29): count only manifests added by the pull request. PR #26 merged and the Test A re-run passed (PR #28).
 
 *(Append-only. If any element above is removed, add an entry here with: element, removal date, approver, reason, and replacement if any. Do not delete the installation entry above.)*
 
