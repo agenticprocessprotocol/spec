@@ -102,6 +102,8 @@ release_integrity:
     - "SECURITY.md"
     - "OPERATIONS-REGISTRY.md"
     - "SECURITY-AUTOMATION.md"
+    - "LICENSE"      # the root file
+    - "**/LICENSE"   # any other LICENSE file (fnmatch's * also matches /)
     - ".github/**"
 
 # ------------------------------------------------------------------

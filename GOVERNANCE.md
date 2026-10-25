@@ -64,7 +64,7 @@ Every pull request to `main` requires:
 - **Legal changes** — any change under `/legal/**`.
 - **Schema or reference-design changes** — any change under `/schemas/**` or `/reference/**`.
 - **Normative changes** — any change that modifies a requirement, an RFC 2119/8174 keyword, a conformance obligation, a schema identified as part of the Specification, a protocol invariant, a security outcome, or an interpretation affecting implementation or conformance.
-- **Governance and CI changes** — any change to `GOVERNANCE.md`, `CONTRIBUTING.md`, `SECURITY.md`, `SECURITY-AUTOMATION.md` or `OPERATIONS-REGISTRY.md`, or under `/.github/**` (workflows, validator scripts and their configuration, CODEOWNERS, templates, Dependabot configuration). This includes Dependabot pull requests.
+- **Governance and CI changes** — any change to `GOVERNANCE.md`, `CONTRIBUTING.md`, `SECURITY.md`, `SECURITY-AUTOMATION.md`, `OPERATIONS-REGISTRY.md` or any `LICENSE` file, or under `/.github/**` (workflows, validator scripts and their configuration, CODEOWNERS, templates, Dependabot configuration). This includes Dependabot pull requests.
 
 Where the Release Approver is also an editor (which is normal at interim), the Release Approver's **Editor approval** (a GitHub review approval) and the **Release Approver sign-off** (a completed template field) are **two distinct governance acts** and are recorded separately in the PR. Both are required.
 
