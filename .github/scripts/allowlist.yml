@@ -102,6 +102,7 @@ release_integrity:
     - "SECURITY.md"
     - "OPERATIONS-REGISTRY.md"
     - "SECURITY-AUTOMATION.md"
+    - "LICENSE"
     - ".github/**"
 
 # ------------------------------------------------------------------

@@ -1,14 +1,19 @@
 # CODEOWNERS — APP specification repository
 #
-# This file maps repository paths to the GitHub team(s) whose review is
-# required before a pull request touching those paths may be merged.
+# This file maps repository paths to the GitHub team(s) from which GitHub
+# requests review on a pull request touching those paths.
 #
 # CODEOWNERS uses LAST-MATCH-WINS semantics. More specific patterns must
 # appear LATER in this file to override earlier general ones.
 #
-# These assignments only REQUEST review by default; the actual blocking
-# behaviour is set by the branch ruleset ("Require review from Code
-# Owners"), which is activated in Work Package 4.
+# These assignments only REQUEST review. Blocking would come from the
+# "Require review from Code Owners" option of the main ruleset
+# (main-protection, active since 2026-10-24). That option is off until each
+# code-owning team has a member who does not author the pull requests it
+# reviews (APP-DEC-0004 §4). Once it is on, an approval from any one listed
+# team satisfies a path with several owners. Until then every change needs
+# one approval from someone other than the last pusher, plus Release
+# Approver sign-off for the classes in GOVERNANCE.md §2.2.
 #
 # See /GOVERNANCE.md §2.2 for the approval policy that uses these
 # assignments.
@@ -44,8 +49,12 @@
 # version to pass its check.
 /.github/release-approvers.txt     @agenticprocessprotocol/custodians @agenticprocessprotocol/release-approvers
 
-# Issue forms and PR template — editors can maintain, release-approvers
-# must co-review because template changes affect governance signalling.
+# Issue forms and PR template: editors maintain them; release-approvers are
+# also listed because template changes affect governance signalling. GitHub
+# requests review from both listed teams. Once code-owner review is
+# enforced, an approval from either team satisfies it (APP-DEC-0004 §4).
+# Until then a change needs one approval from someone other than the last
+# pusher and Release Approver sign-off (.github/** path).
 /.github/ISSUE_TEMPLATE/**         @agenticprocessprotocol/editors @agenticprocessprotocol/release-approvers
 /.github/pull_request_template.md  @agenticprocessprotocol/editors @agenticprocessprotocol/release-approvers
 
@@ -57,7 +66,12 @@
 /decisions/**                      @agenticprocessprotocol/release-approvers
 /releases/**                       @agenticprocessprotocol/release-approvers
 
-# OPERATIONS-REGISTRY: dual control for App / permission grant integrity.
+# OPERATIONS-REGISTRY: the record of Apps, Actions, settings and permission
+# grants. GitHub requests review from both listed teams. Once code-owner
+# review is enforced, an approval from either team satisfies it
+# (APP-DEC-0004 §4). Until then a change needs one approval from someone
+# other than the last pusher and Release Approver sign-off (a governance
+# and CI path, GOVERNANCE.md §2.2).
 /OPERATIONS-REGISTRY.md            @agenticprocessprotocol/custodians @agenticprocessprotocol/release-approvers
 
 # ----------------------------------------------------------------------
