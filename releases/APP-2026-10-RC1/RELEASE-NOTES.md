@@ -64,3 +64,5 @@ The next baseline is prepared in `/drafts/` on the default branch. The present b
 ---
 
 *End of RELEASE NOTES for APP-2026-10-RC1.*
+
+CI test line; not for merge.
