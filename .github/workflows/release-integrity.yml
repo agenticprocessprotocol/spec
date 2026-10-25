@@ -14,7 +14,8 @@ name: release-integrity
 #      read from the base branch, so a PR cannot loosen either for itself.
 #
 # This is how differential sign-off is enforced on top of the uniform
-# "1 approval + CODEOWNER + status checks" ruleset.
+# "1 approval + status checks" ruleset. Code-owner review is off until
+# the trigger in APP-DEC-0004 §4.
 #
 # Required status check on main.
 

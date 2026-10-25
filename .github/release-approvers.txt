@@ -8,8 +8,12 @@
 # author to this file could not use the modified version to pass its
 # own check — the base branch's version is the one consulted.
 #
-# Changes to this file require CODEOWNER review by both
+# .github/CODEOWNERS requests review on changes to this file from
 # @agenticprocessprotocol/custodians and
-# @agenticprocessprotocol/release-approvers per .github/CODEOWNERS.
+# @agenticprocessprotocol/release-approvers; once code-owner review is
+# enforced, an approval from either team satisfies it. It is not yet
+# enforced by the main ruleset (APP-DEC-0004 §4). Until then a change
+# needs one approval from someone other than the last pusher and Release
+# Approver sign-off (GOVERNANCE.md §2.2, governance and CI changes).
 
 APPcustodian

@@ -74,7 +74,7 @@ Normative changes must pass through the Normative Suite Control gate before merg
 
 1. A completed **change-impact manifest** is present at `/changes/APP-XXXX.md`, covering all nine fields required by APP-1 §4 (requirement ID deltas, affected documents, cross-reference updates, APP-5 applicability impact, traceability impact, test impact, migration impact, suite baseline regeneration).
 2. All automated checks pass: `validate-spec` (manifest, legacy-name, reference-hygiene, keyword, cross-reference, DCO sign-off), `links`, `release-integrity`.
-3. The approval threshold in §2.2 is met: Editor approval + CODEOWNER review + Release Approver sign-off.
+3. The approval threshold in §2.2 is met: Editor approval (from someone other than the last pusher) and Release Approver sign-off, plus CODEOWNER review once the ruleset enforces it (§4).
 
 Only then will the Custodian prepare the merge. The Release Approver clicks Merge.
 
