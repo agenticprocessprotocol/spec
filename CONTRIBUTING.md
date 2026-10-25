@@ -128,7 +128,7 @@ Failing checks block merge. The Custodian helps you diagnose, but does not merge
 
 ### 5.3 Reviewers
 
-GitHub automatically requests review from the owners of the paths your PR touches, per [`.github/CODEOWNERS`](.github/CODEOWNERS). The code-owner review is required by branch protection.
+GitHub automatically requests review from the owners of the paths your PR touches, per [`.github/CODEOWNERS`](.github/CODEOWNERS). Code-owner review is not yet enforced by the `main` ruleset ([APP-DEC-0004](decisions/APP-DEC-0004.md) §4). Every PR needs one approval from someone other than the last pusher, and Release Approver sign-off for the classes in [`GOVERNANCE.md`](GOVERNANCE.md) §2.2.
 
 ### 5.4 Normative changes — the extra discipline
 

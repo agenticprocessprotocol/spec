@@ -44,7 +44,7 @@ Every workflow in `.github/workflows/` MUST comply with the following:
 
 ### 1.6 Workflow file ownership
 
-- All files under `.github/workflows/` are owned by `@agenticprocessprotocol/custodians` in [`.github/CODEOWNERS`](.github/CODEOWNERS). A code-owner review is required before any workflow change can be merged.
+- All files under `.github/workflows/` are owned by `@agenticprocessprotocol/custodians` in [`.github/CODEOWNERS`](.github/CODEOWNERS), which requests their review on any workflow change. Code-owner review is not yet enforced by the `main` ruleset: it is switched on once each code-owning team has a member who does not author the pull requests it reviews ([APP-DEC-0004](decisions/APP-DEC-0004.md) §4). Until then, a workflow change needs one approval from someone other than the last pusher and Release Approver sign-off ([`GOVERNANCE.md`](GOVERNANCE.md) §2.2, governance and CI changes).
 
 ---
 

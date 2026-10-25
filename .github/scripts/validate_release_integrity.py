@@ -20,6 +20,9 @@ Check B — Release Approver sign-off presence.
     * The sign-off block's named fields are populated (name, date, and
       a classification picked from the list, not a placeholder).
   This is the enforcement path for GOVERNANCE.md §2.2.
+
+Both checks need BASE_SHA. A GitHub Actions run without it fails, except
+workflow_dispatch, which has no pull request and so no base.
 """
 
 from __future__ import annotations
@@ -311,8 +314,33 @@ def _read_authorised_approvers_from_base() -> set[str] | None:
 # Entry point
 # ----------------------------------------------------------------------
 
+def _base_ref_missing_in_ci() -> bool:
+    """True for a GitHub Actions run, other than workflow_dispatch, with an
+    empty BASE_SHA.
+
+    The release-immutability test and the base-branch reads of the
+    sign-off paths and release-approvers.txt all need BASE_SHA. Without it
+    they would fall back to the PR's own copies and pass silently, so such
+    a run fails instead. The fallback stays for workflow_dispatch (no pull
+    request, so no base) and for local runs outside GitHub Actions.
+    """
+    if os.environ.get("BASE_SHA", "").strip():
+        return False
+    if os.environ.get("GITHUB_ACTIONS", "") != "true":
+        return False
+    return os.environ.get("GITHUB_EVENT_NAME", "") != "workflow_dispatch"
+
+
 def _run() -> int:
     r = Reporter("release-integrity")
+    if _base_ref_missing_in_ci():
+        event = os.environ.get("GITHUB_EVENT_NAME", "") or "unknown"
+        r.error(
+            f"BASE_SHA is empty on a '{event}' run, so the base-branch checks "
+            "(release immutability, sign-off paths, release-approvers.txt) cannot run. "
+            "release-integrity.yml must pass BASE_SHA to the validator step."
+        )
+        return r.finish()
     allow = load_allowlist()
     changed = _read_changed_paths()
     pr_body = _read_pr_body()
