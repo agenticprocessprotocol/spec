@@ -93,7 +93,7 @@ OR
        - Normative (any of the triggers in Change classification above)
        - Governance and CI (change to GOVERNANCE.md, CONTRIBUTING.md,
          SECURITY.md, SECURITY-AUTOMATION.md, OPERATIONS-REGISTRY.md,
-         LICENSE, or under /.github/**, including Dependabot PRs)
+         any LICENSE file, or under /.github/**, including Dependabot PRs)
 
      For editorial and other changes, write "N/A — classification does
      not require Release Approver sign-off" in each field.
