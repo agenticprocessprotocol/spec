@@ -29,13 +29,19 @@
 /.github/actions/**                @agenticprocessprotocol/custodians
 /.github/dependabot.yml            @agenticprocessprotocol/custodians
 
-# CODEOWNERS itself: both custodians and release-approvers must sign off,
-# so no team can unilaterally expand its own review power.
+# CODEOWNERS itself: GitHub requests review from both listed teams. Once
+# code-owner review is enforced, an approval from either team satisfies it
+# (APP-DEC-0004 §4). Until then a change needs one approval from someone
+# other than the last pusher and Release Approver sign-off (.github/** path).
 /.github/CODEOWNERS                @agenticprocessprotocol/custodians @agenticprocessprotocol/release-approvers
 
-# release-approvers.txt: dual control for the list of authorised sign-off
-# identities. Read from the base branch by release-integrity, so a PR cannot
-# use its own modified version to pass its check.
+# release-approvers.txt: the list of authorised sign-off identities.
+# GitHub requests review from both listed teams. Once code-owner review is
+# enforced, an approval from either team satisfies it (APP-DEC-0004 §4).
+# Until then a change needs one approval from someone other than the last
+# pusher and Release Approver sign-off (.github/** path). release-integrity
+# reads this file from the base branch, so a PR cannot use its own modified
+# version to pass its check.
 /.github/release-approvers.txt     @agenticprocessprotocol/custodians @agenticprocessprotocol/release-approvers
 
 # Issue forms and PR template — editors can maintain, release-approvers
